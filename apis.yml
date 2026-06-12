@@ -1,0 +1,90 @@
+aid: fathom
+name: Fathom Analytics
+description: >
+  Fathom Analytics is a privacy-first website analytics platform that provides
+  GDPR-compliant, cookie-free analytics as an alternative to Google Analytics.
+  The platform serves thousands of companies, including Fortune 100 enterprises
+  and government agencies, offering simple and accurate traffic metrics without
+  tracking personally identifiable information. Fathom exposes a REST API with
+  base URL https://api.usefathom.com/v1, enabling developers to manage sites,
+  events, and milestones, generate aggregated custom reports, and retrieve
+  real-time visitor counts. Authentication is via Bearer token API keys, which
+  are generated in the account settings area and support configurable
+  permissions scoped to admin, all sites, or individual sites.
+type: Index
+image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+tags:
+  - Analytics
+  - Privacy
+  - GDPR
+  - Website Analytics
+  - Cookieless
+  - Page Views
+  - Events
+  - Reporting
+url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/apis.yml
+created: '2026-06-12'
+modified: '2026-06-12'
+specificationVersion: '0.19'
+apis:
+  - aid: fathom:fathom-analytics-api
+    name: Fathom Analytics REST API
+    description: >
+      The Fathom Analytics REST API provides programmatic access to account
+      data, sites, events, milestones, aggregation reports, and real-time
+      current visitor counts. All requests authenticate via Bearer token and
+      use cursor-based pagination. Rate limits differ by endpoint type: 2,000
+      requests per hour for site and event management endpoints, and 10
+      requests per minute for aggregation and current-visitors reporting
+      endpoints.
+    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    humanURL: https://usefathom.com/api
+    baseURL: https://api.usefathom.com/v1
+    tags:
+      - Analytics
+      - Sites
+      - Events
+      - Reporting
+      - Real-Time
+    properties:
+      - type: Documentation
+        url: https://usefathom.com/api
+      - type: OpenAPI
+        url: https://usefathom.com/api
+    contact:
+      - FN: Fathom Analytics Support
+        email: support@usefathom.com
+common:
+  - type: Website
+    url: https://usefathom.com/
+  - type: Documentation
+    url: https://usefathom.com/docs
+  - type: APIDocumentation
+    url: https://usefathom.com/api
+  - type: Blog
+    url: https://usefathom.com/blog
+  - type: BlogFeed
+    url: https://usefathom.com/blog/feed.xml
+  - type: Changelog
+    url: https://usefathom.com/changelog
+  - type: ChangelogFeed
+    url: https://usefathom.com/changelog/feed.xml
+  - type: Pricing
+    url: https://usefathom.com/pricing
+  - type: StatusPage
+    url: https://status.usefathom.com/
+  - type: GitHubOrganization
+    url: https://github.com/usefathom
+  - type: X
+    url: https://twitter.com/usefathom
+  - type: LinkedIn
+    url: https://www.linkedin.com/company/fathom-analytics
+  - type: Plans
+    url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/plans/fathom-plans-pricing.yml
+  - type: RateLimits
+    url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/rate-limits/fathom-rate-limits.yml
+  - type: FinOps
+    url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/finops/fathom-finops.yml
+maintainers:
+  - FN: Kin Lane
+    email: kin@apievangelist.com

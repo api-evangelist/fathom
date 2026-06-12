@@ -1,0 +1,73 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+provider: Fathom Analytics
+providerId: fathom
+created: '2026-06-12'
+modified: '2026-06-12'
+url: https://usefathom.com/docs/api-reference/rate-limits
+
+headers:
+  retryAfter: Retry-After
+
+responseCodes:
+  throttled: 429
+
+notes: >
+  Fathom Analytics enforces two distinct rate limit tiers based on endpoint
+  type. Site and event management endpoints allow higher throughput (2,000/hr)
+  while reporting and aggregation endpoints are more restrictive (10/min) due
+  to the computational cost of generating custom reports. All API requests
+  regardless of endpoint type count against the account's monthly pageview
+  quota. Users requiring higher rate limits should contact
+  support@usefathom.com to discuss custom arrangements.
+
+limits:
+  - scope: sites-and-events
+    description: >
+      Rate limit applied to all Sites and Events management endpoints,
+      including list, get, create, update, wipe, and delete operations.
+    endpoints:
+      - GET /v1/sites
+      - GET /v1/sites/{site_id}
+      - POST /v1/sites
+      - POST /v1/sites/{site_id}
+      - DELETE /v1/sites/{site_id}/data
+      - DELETE /v1/sites/{site_id}
+      - GET /v1/sites/{site_id}/events
+      - GET /v1/sites/{site_id}/events/{event_id}
+      - POST /v1/sites/{site_id}/events
+      - POST /v1/sites/{site_id}/events/{event_id}
+      - DELETE /v1/sites/{site_id}/events/{event_id}/data
+      - DELETE /v1/sites/{site_id}/events/{event_id}
+      - GET /v1/account
+    metric: requests
+    limit: 2000
+    timeFrame: hour
+
+  - scope: reporting
+    description: >
+      Stricter rate limit applied to aggregation report generation and
+      real-time current visitor endpoints due to the computational cost
+      of running complex database queries. Initial aggregation queries
+      may also experience additional latency while the database creates
+      query plans.
+    endpoints:
+      - GET /v1/aggregations
+      - GET /v1/current_visitors
+    metric: requests
+    limit: 10
+    timeFrame: minute
+
+  - scope: milestones
+    description: >
+      Rate limit applied to milestones management endpoints, consistent
+      with the general sites-and-events tier.
+    endpoints:
+      - GET /v1/sites/{site_id}/milestones
+      - GET /v1/sites/{site_id}/milestones/{milestone_id}
+      - POST /v1/sites/{site_id}/milestones
+      - POST /v1/sites/{site_id}/milestones/{milestone_id}
+      - DELETE /v1/sites/{site_id}/milestones/{milestone_id}
+    metric: requests
+    limit: 2000
+    timeFrame: hour

@@ -1,0 +1,110 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+provider: Fathom Analytics
+providerId: fathom
+created: '2026-06-12'
+modified: '2026-06-12'
+url: https://usefathom.com/pricing
+
+billingModel: subscription
+description: >
+  Fathom Analytics uses a tiered monthly or annual subscription model priced
+  by monthly pageview volume. All plans include API access, up to 50 sites,
+  event tracking, and forever data retention. There are no per-API-call or
+  usage-based charges beyond the pageview tier selection. Annual billing
+  provides approximately 17% savings versus monthly. API requests count against
+  the monthly pageview quota, so heavy API usage should be factored into tier
+  selection.
+
+focusColumns:
+  - ChargeType: Usage
+  - ServiceName: Fathom Analytics
+  - ServiceCategory: Analytics
+  - BillingCurrency: USD
+  - BillingPeriod: Monthly or Annual
+  - PricingUnit: Pageviews per month
+
+meters:
+  - name: Monthly Pageviews
+    description: >
+      Total pageviews tracked across all sites in the account per billing
+      month. API requests that retrieve data also count toward this meter.
+      Exceeding the plan limit may trigger a plan upgrade prompt.
+    unit: pageviews
+    granularity: monthly
+    tiers:
+      - upTo: 100000
+        price: 15.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 200000
+        price: 25.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 500000
+        price: 45.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 1000000
+        price: 60.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 2000000
+        price: 100.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 5000000
+        price: 140.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 10000000
+        price: 200.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 15000000
+        price: 290.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 20000000
+        price: 380.00
+        currency: USD
+        billingPeriod: month
+      - upTo: 25000000
+        price: 470.00
+        currency: USD
+        billingPeriod: month
+      - upTo: -1
+        price: 0.00
+        currency: USD
+        billingPeriod: month
+        notes: Contact sales for custom enterprise pricing above 25M pageviews
+
+principles:
+  - name: Visibility
+    description: >
+      Fathom provides straightforward, predictable pricing tied solely to
+      monthly pageview volume. There are no hidden fees, per-seat charges,
+      or metered API call costs. The pricing page at usefathom.com/pricing
+      clearly lists all tier thresholds and prices, enabling organizations
+      to forecast costs accurately based on expected traffic.
+    actions:
+      - Monitor monthly pageview consumption in the Fathom dashboard
+      - Track API request volume as API calls count against pageview quota
+      - Review the changelog at usefathom.com/changelog for plan changes
+      - Use the status page at status.usefathom.com/ to monitor uptime
+
+  - name: Optimization
+    description: >
+      Organizations can optimize Fathom spend by selecting the appropriate
+      pageview tier, switching to annual billing for 17% savings, and
+      managing API request frequency (especially aggregation queries) to
+      avoid unnecessary pageview quota consumption. Downgrades and upgrades
+      are available at any time with no contracts or penalties.
+    actions:
+      - Choose annual billing to save approximately 17% vs monthly
+      - Right-size the pageview tier based on actual traffic analytics
+      - Limit high-frequency polling of aggregation and current_visitors
+        endpoints to reduce unnecessary pageview quota usage
+      - Use cursor-based pagination efficiently to minimize API call volume
+      - Contact support@usefathom.com to discuss custom rate limits if
+        standard tiers are insufficient

@@ -1,0 +1,177 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+provider: Fathom Analytics
+providerId: fathom
+created: '2026-06-12'
+modified: '2026-06-12'
+reconciled: true
+url: https://usefathom.com/pricing
+
+plans:
+  - name: Starter
+    description: >
+      Entry-level paid plan for small websites. Includes API access, up to 50
+      sites, ecommerce/event tracking, forever data retention, and all core
+      features. 7-day free trial available.
+    type: paid
+    url: https://usefathom.com/pricing
+    pricing:
+      - price: 15.00
+        unit: month
+        currency: USD
+      - price: 150.00
+        unit: year
+        currency: USD
+    quotas:
+      - type: quota
+        name: Monthly Pageviews
+        description: Maximum monthly pageviews tracked across all sites
+        metric: pageviews
+        limit: 100000
+        timeFrame: month
+    features:
+      - type: boolean
+        name: API Access
+        description: Full REST API access included
+        value: true
+      - type: quota
+        name: Sites
+        description: Number of websites that can be tracked
+        metric: sites
+        limit: 50
+        timeFrame: month
+      - type: boolean
+        name: Event Tracking
+        description: Ecommerce and custom event tracking
+        value: true
+      - type: boolean
+        name: Data Retention
+        description: Forever data retention with full ownership
+        value: true
+      - type: boolean
+        name: Cookie Banner Required
+        description: No cookie banner required (cookieless analytics)
+        value: false
+
+  - name: Growth
+    description: >
+      Mid-tier plan for growing websites with up to 200,000 monthly pageviews.
+      Includes all Starter features plus higher pageview capacity.
+    type: paid
+    url: https://usefathom.com/pricing
+    pricing:
+      - price: 25.00
+        unit: month
+        currency: USD
+      - price: 250.00
+        unit: year
+        currency: USD
+    quotas:
+      - type: quota
+        name: Monthly Pageviews
+        description: Maximum monthly pageviews tracked across all sites
+        metric: pageviews
+        limit: 200000
+        timeFrame: month
+    features:
+      - type: boolean
+        name: API Access
+        description: Full REST API access included
+        value: true
+      - type: quota
+        name: Sites
+        description: Number of websites that can be tracked
+        metric: sites
+        limit: 50
+        timeFrame: month
+
+  - name: Business
+    description: >
+      Business plan for higher-traffic websites. Includes all features and
+      supports up to 500,000 monthly pageviews.
+    type: paid
+    url: https://usefathom.com/pricing
+    pricing:
+      - price: 45.00
+        unit: month
+        currency: USD
+    quotas:
+      - type: quota
+        name: Monthly Pageviews
+        description: Maximum monthly pageviews tracked across all sites
+        metric: pageviews
+        limit: 500000
+        timeFrame: month
+    features:
+      - type: boolean
+        name: API Access
+        description: Full REST API access included
+        value: true
+      - type: quota
+        name: Sites
+        description: Number of websites that can be tracked
+        metric: sites
+        limit: 50
+        timeFrame: month
+
+  - name: Scale
+    description: >
+      High-volume plan for websites tracking up to 1 million monthly pageviews.
+      Suitable for larger businesses and agencies.
+    type: paid
+    url: https://usefathom.com/pricing
+    pricing:
+      - price: 60.00
+        unit: month
+        currency: USD
+    quotas:
+      - type: quota
+        name: Monthly Pageviews
+        description: Maximum monthly pageviews tracked across all sites
+        metric: pageviews
+        limit: 1000000
+        timeFrame: month
+    features:
+      - type: boolean
+        name: API Access
+        description: Full REST API access included
+        value: true
+      - type: quota
+        name: Sites
+        description: Number of websites that can be tracked
+        metric: sites
+        limit: 50
+        timeFrame: month
+
+  - name: Enterprise
+    description: >
+      Enterprise-grade plan for websites exceeding 25 million monthly pageviews.
+      Custom pricing negotiated directly with the Fathom sales team. Includes
+      all features plus enterprise-grade infrastructure and dedicated support.
+    type: enterprise
+    url: https://usefathom.com/pricing
+    pricing:
+      - price: 0.00
+        unit: month
+        currency: USD
+        notes: Contact sales for custom pricing
+    quotas:
+      - type: quota
+        name: Monthly Pageviews
+        description: Custom pageview limits above 25 million
+        metric: pageviews
+        limit: -1
+        timeFrame: month
+    features:
+      - type: boolean
+        name: API Access
+        description: Full REST API access included
+        value: true
+      - type: boolean
+        name: Custom Rate Limits
+        description: Higher API rate limits available upon request
+        value: true
+      - type: boolean
+        name: Dedicated Support
+        description: Priority enterprise support
+        value: true

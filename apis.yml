@@ -50,7 +50,7 @@ apis:
       - type: Documentation
         url: https://usefathom.com/api
       - type: OpenAPI
-        url: https://usefathom.com/api
+        url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/openapi/fathom-analytics-api-openapi.yml
     contact:
       - FN: Fathom Analytics Support
         email: support@usefathom.com
@@ -85,6 +85,12 @@ common:
     url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/rate-limits/fathom-rate-limits.yml
   - type: FinOps
     url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/finops/fathom-finops.yml
+  - type: Vocabulary
+    url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/vocabulary/fathom-vocabulary.yml
+  - type: JSONLDContext
+    url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/json-ld/fathom-context.jsonld
+  - type: BlogFeedJSON
+    url: https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/blogs/blogs.json
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

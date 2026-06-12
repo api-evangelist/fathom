@@ -1,0 +1,116 @@
+vocabulary:
+  - term: site
+    definition: >
+      A website registered in Fathom Analytics. Each site has a unique tracking
+      code snippet embedded on web pages and acts as the container for all
+      pageview and event data.
+    type: resource
+
+  - term: event
+    definition: >
+      A named custom action tracked on a site, such as a button click or form
+      submission. Events support conversion and value tracking beyond standard
+      pageviews.
+    type: resource
+
+  - term: milestone
+    definition: >
+      A date-stamped annotation added to a site's analytics timeline to mark
+      significant business or content events for reference when reviewing
+      historical data.
+    type: resource
+
+  - term: account
+    definition: >
+      The Fathom user account under which sites, API keys, and billing are
+      managed.
+    type: resource
+
+  - term: pageview
+    definition: >
+      A recorded visit to a URL on a tracked site. The fundamental unit of
+      Fathom analytics data, stored without any personally identifiable
+      information or cookies.
+    type: concept
+
+  - term: visits
+    definition: >
+      The number of unique sessions on a site within the queried period.
+    type: metric
+
+  - term: uniques
+    definition: >
+      The count of unique visitors during the queried period, identified by
+      non-tracking heuristics rather than cookies.
+    type: metric
+
+  - term: bounce_rate
+    definition: >
+      The proportion of visits where a visitor viewed only one page and left
+      without further interaction, expressed as a decimal (e.g. 0.42 = 42%).
+    type: metric
+
+  - term: avg_duration
+    definition: >
+      The average time in seconds visitors spent on a page or site during the
+      queried period.
+    type: metric
+
+  - term: conversions
+    definition: >
+      The total number of times a tracked event was fired during the queried
+      period.
+    type: metric
+
+  - term: unique_conversions
+    definition: >
+      The number of distinct visitors who triggered a tracked event at least
+      once during the queried period.
+    type: metric
+
+  - term: aggregation
+    definition: >
+      A summary report combining multiple analytics metrics, optionally grouped
+      by time period or dimension fields such as pathname, country, browser, or
+      UTM parameters.
+    type: concept
+
+  - term: date_grouping
+    definition: >
+      The time granularity used to bucket aggregation results: hour, day, month,
+      or year.
+    type: parameter
+
+  - term: field_grouping
+    definition: >
+      A dimension by which aggregation results are broken down, such as
+      hostname, pathname, referrer_hostname, browser, country_code, city,
+      device_type, or operating_system.
+    type: parameter
+
+  - term: cursor_pagination
+    definition: >
+      The pagination mechanism used by list endpoints. Clients pass
+      starting_after or ending_before cursor values (resource IDs) to navigate
+      forward or backward through result sets.
+    type: concept
+
+  - term: bearer_token
+    definition: >
+      The authentication credential passed in the Authorization header as
+      "Bearer <token>". Tokens are generated in the Fathom account settings
+      and can be scoped to admin access, all sites, or individual sites.
+    type: concept
+
+  - term: sharing
+    definition: >
+      The dashboard visibility setting for a site. Values are "none" (private,
+      no sharing), "private" (password-protected shared link), and "public"
+      (publicly accessible dashboard).
+    type: property
+
+  - term: current_visitors
+    definition: >
+      A real-time count of visitors active on a site at the moment of the API
+      request, optionally broken down by page and referrer.
+    type: concept

@@ -1,0 +1,913 @@
+openapi: 3.0.3
+info:
+  title: Fathom Analytics REST API
+  description: >
+    Privacy-first, GDPR-compliant, cookie-free website analytics API.
+    Manage sites, events, and milestones; generate aggregated custom reports;
+    and retrieve real-time visitor counts. Authentication uses Bearer token
+    API keys generated in the account settings area.
+  version: '1'
+  contact:
+    name: Fathom Analytics Support
+    email: support@usefathom.com
+  termsOfService: https://usefathom.com/terms
+  license:
+    name: Proprietary
+servers:
+  - url: https://api.usefathom.com/v1
+    description: Fathom Analytics API v1
+security:
+  - BearerAuth: []
+tags:
+  - name: Account
+    description: Account information
+  - name: Sites
+    description: Site management
+  - name: Events
+    description: Event management per site
+  - name: Milestones
+    description: Milestone management per site
+  - name: Reports
+    description: Aggregation reports and current visitor counts
+paths:
+  /account:
+    get:
+      operationId: getAccount
+      summary: Get account
+      description: Returns account information for the authenticated user.
+      tags:
+        - Account
+      responses:
+        '200':
+          description: Account object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /sites:
+    get:
+      operationId: listSites
+      summary: List sites
+      description: Returns a paginated list of sites belonging to the account.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/EndingBefore'
+      responses:
+        '200':
+          description: Paginated list of sites
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSite
+      summary: Create site
+      description: Creates a new site.
+      tags:
+        - Sites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteCreate'
+      responses:
+        '200':
+          description: Created site object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /sites/{site_id}:
+    get:
+      operationId: getSite
+      summary: Get site
+      description: Returns a single site by ID.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Site object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateSite
+      summary: Update site
+      description: Updates a site's name or sharing settings.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteUpdate'
+      responses:
+        '200':
+          description: Updated site object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSite
+      summary: Delete site
+      description: Permanently deletes a site and all its data.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /sites/{site_id}/data:
+    delete:
+      operationId: wipeSiteData
+      summary: Wipe site data
+      description: Permanently wipes all analytics data for a site without deleting the site itself.
+      tags:
+        - Sites
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /sites/{site_id}/events:
+    get:
+      operationId: listEvents
+      summary: List events
+      description: Returns a paginated list of events for a site.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/EndingBefore'
+      responses:
+        '200':
+          description: Paginated list of events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createEvent
+      summary: Create event
+      description: Creates a new custom event for a site.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreate'
+      responses:
+        '200':
+          description: Created event object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /sites/{site_id}/events/{event_id}:
+    get:
+      operationId: getEvent
+      summary: Get event
+      description: Returns a single event by ID.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/EventId'
+      responses:
+        '200':
+          description: Event object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateEvent
+      summary: Update event
+      description: Updates an event's name.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/EventId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdate'
+      responses:
+        '200':
+          description: Updated event object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEvent
+      summary: Delete event
+      description: Permanently deletes an event.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/EventId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /sites/{site_id}/events/{event_id}/data:
+    delete:
+      operationId: wipeEventData
+      summary: Wipe event data
+      description: Permanently wipes all data for an event without deleting the event itself.
+      tags:
+        - Events
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/EventId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /sites/{site_id}/milestones:
+    get:
+      operationId: listMilestones
+      summary: List milestones
+      description: Returns a paginated list of milestones for a site.
+      tags:
+        - Milestones
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/Limit'
+        - $ref: '#/components/parameters/StartingAfter'
+        - $ref: '#/components/parameters/EndingBefore'
+      responses:
+        '200':
+          description: Paginated list of milestones
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MilestoneList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createMilestone
+      summary: Create milestone
+      description: Creates a new milestone for a site.
+      tags:
+        - Milestones
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MilestoneCreate'
+      responses:
+        '200':
+          description: Created milestone object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Milestone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /sites/{site_id}/milestones/{milestone_id}:
+    get:
+      operationId: getMilestone
+      summary: Get milestone
+      description: Returns a single milestone by ID.
+      tags:
+        - Milestones
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/MilestoneId'
+      responses:
+        '200':
+          description: Milestone object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Milestone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateMilestone
+      summary: Update milestone
+      description: Updates a milestone's name or date.
+      tags:
+        - Milestones
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/MilestoneId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MilestoneUpdate'
+      responses:
+        '200':
+          description: Updated milestone object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Milestone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMilestone
+      summary: Delete milestone
+      description: Permanently deletes a milestone.
+      tags:
+        - Milestones
+      parameters:
+        - $ref: '#/components/parameters/SiteId'
+        - $ref: '#/components/parameters/MilestoneId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+
+  /aggregations:
+    get:
+      operationId: getAggregations
+      summary: Get aggregations
+      description: >
+        Returns aggregated analytics data. Rate limited to 10 requests per
+        minute. Supports grouping by time period and dimension fields, sorting,
+        filtering, and timezone-aware date ranges.
+      tags:
+        - Reports
+      parameters:
+        - name: entity
+          in: query
+          required: true
+          description: The entity type to aggregate.
+          schema:
+            type: string
+            enum:
+              - pageview
+              - event
+        - name: entity_id
+          in: query
+          required: false
+          description: Required when entity is "pageview". The site ID.
+          schema:
+            type: string
+        - name: site_id
+          in: query
+          required: false
+          description: Required when entity is "event". The site ID.
+          schema:
+            type: string
+        - name: entity_name
+          in: query
+          required: false
+          description: Required when entity is "event". The event name.
+          schema:
+            type: string
+        - name: aggregates
+          in: query
+          required: true
+          description: >
+            Comma-separated list of aggregate metrics. For pageviews: visits,
+            uniques, pageviews, avg_duration, bounce_rate. For events:
+            conversions, unique_conversions, value.
+          schema:
+            type: string
+        - name: date_grouping
+          in: query
+          required: false
+          description: Group results by time period.
+          schema:
+            type: string
+            enum:
+              - hour
+              - day
+              - month
+              - year
+        - name: field_grouping
+          in: query
+          required: false
+          description: >
+            Dimension field to group by. Allowed values: hostname, pathname,
+            referrer_hostname, browser, country_code, city, device_type,
+            operating_system, utm_source, utm_medium, utm_campaign, utm_content,
+            utm_term, keyword.
+          schema:
+            type: string
+        - name: sort_by
+          in: query
+          required: false
+          description: Sort order in field:asc or field:desc format.
+          schema:
+            type: string
+        - name: timezone
+          in: query
+          required: false
+          description: IANA TZ database timezone name (e.g. America/New_York).
+          schema:
+            type: string
+        - name: date_from
+          in: query
+          required: false
+          description: Start of date range as Unix timestamp.
+          schema:
+            type: integer
+        - name: date_to
+          in: query
+          required: false
+          description: End of date range as Unix timestamp.
+          schema:
+            type: integer
+        - name: limit
+          in: query
+          required: false
+          description: Maximum number of results to return.
+          schema:
+            type: integer
+        - name: filters
+          in: query
+          required: false
+          description: >
+            JSON-encoded array of filter objects with field, operator (is, is not,
+            is like, matching, not matching), and value keys.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Aggregated analytics results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+  /current_visitors:
+    get:
+      operationId: getCurrentVisitors
+      summary: Get current visitors
+      description: >
+        Returns the number of visitors currently on a site. Rate limited to
+        10 requests per minute.
+      tags:
+        - Reports
+      parameters:
+        - name: site_id
+          in: query
+          required: true
+          description: The site ID to query.
+          schema:
+            type: string
+        - name: detailed
+          in: query
+          required: false
+          description: If true, returns breakdown by page and referrer.
+          schema:
+            type: boolean
+      responses:
+        '200':
+          description: Current visitor count and optional detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentVisitors'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
+components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated in account settings at https://app.usefathom.com/api
+
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: Unique identifier for the site.
+      schema:
+        type: string
+    EventId:
+      name: event_id
+      in: path
+      required: true
+      description: Unique identifier for the event.
+      schema:
+        type: string
+    MilestoneId:
+      name: milestone_id
+      in: path
+      required: true
+      description: Unique identifier for the milestone.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of results per page (1-100, default 10).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
+      schema:
+        type: string
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
+
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+        - error
+
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique account identifier.
+        object:
+          type: string
+          example: account
+        name:
+          type: string
+          description: Account display name.
+        email:
+          type: string
+          format: email
+          description: Account email address.
+
+    Site:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique site identifier.
+        object:
+          type: string
+          example: site
+        name:
+          type: string
+          description: Site display name.
+        sharing:
+          type: string
+          enum:
+            - none
+            - private
+            - public
+          description: Sharing setting for the site dashboard.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the site was created.
+
+    SiteCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the site.
+        sharing:
+          type: string
+          enum:
+            - none
+            - private
+            - public
+          description: Sharing setting for the site dashboard.
+        share_password:
+          type: string
+          description: Password for private sharing (required when sharing is private).
+
+    SiteUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the site.
+        sharing:
+          type: string
+          enum:
+            - none
+            - private
+            - public
+        share_password:
+          type: string
+
+    SiteList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Site'
+        has_more:
+          type: boolean
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique event identifier.
+        object:
+          type: string
+          example: event
+        name:
+          type: string
+          description: Event display name.
+        site_id:
+          type: string
+          description: ID of the site this event belongs to.
+        created_at:
+          type: string
+          format: date-time
+
+    EventCreate:
+      type: object
+      required:
+        - name
+      properties:
+        name:
+          type: string
+          description: Display name for the event.
+
+    EventUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the event.
+
+    EventList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        has_more:
+          type: boolean
+
+    Milestone:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique milestone identifier.
+        object:
+          type: string
+          example: milestone
+        name:
+          type: string
+          description: Milestone display name.
+        milestone_date:
+          type: string
+          format: date
+          description: Date of the milestone (YYYY-MM-DD).
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+
+    MilestoneCreate:
+      type: object
+      required:
+        - name
+        - milestone_date
+      properties:
+        name:
+          type: string
+          description: Display name for the milestone.
+        milestone_date:
+          type: string
+          format: date
+          description: Date of the milestone (YYYY-MM-DD).
+
+    MilestoneUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        milestone_date:
+          type: string
+          format: date
+
+    MilestoneList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Milestone'
+        has_more:
+          type: boolean
+
+    AggregationResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+              description: Dynamic keys matching the requested aggregates and groupings.
+
+    CurrentVisitors:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of current visitors on the site.
+        content:
+          type: array
+          description: Per-page breakdown (when detailed=true).
+          items:
+            type: object
+            properties:
+              pathname:
+                type: string
+              total:
+                type: integer
+        referrers:
+          type: array
+          description: Per-referrer breakdown (when detailed=true).
+          items:
+            type: object
+            properties:
+              referrer:
+                type: string
+              total:
+                type: integer

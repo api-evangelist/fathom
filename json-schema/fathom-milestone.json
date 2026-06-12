@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fathom/main/json-schema/fathom-milestone.json",
+  "title": "Fathom Milestone",
+  "description": "A date-marked milestone for a Fathom Analytics site.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique milestone identifier."
+    },
+    "object": {
+      "type": "string",
+      "const": "milestone"
+    },
+    "name": {
+      "type": "string",
+      "description": "Milestone display name."
+    },
+    "milestone_date": {
+      "type": "string",
+      "format": "date",
+      "description": "Date of the milestone (YYYY-MM-DD)."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "updated_at": {
+      "type": "string",
+      "format": "date-time"
+    }
+  },
+  "required": ["id", "object", "name", "milestone_date", "created_at", "updated_at"]
+}

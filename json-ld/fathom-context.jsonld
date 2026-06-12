@@ -1,0 +1,114 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "fathom": "https://usefathom.com/api#",
+    "schema": "https://schema.org/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+
+    "Site": "fathom:Site",
+    "Event": "fathom:Event",
+    "Milestone": "fathom:Milestone",
+    "Account": "fathom:Account",
+
+    "id": "@id",
+    "object": "fathom:objectType",
+
+    "name": {
+      "@id": "schema:name",
+      "@type": "xsd:string"
+    },
+    "email": {
+      "@id": "schema:email",
+      "@type": "xsd:string"
+    },
+    "sharing": {
+      "@id": "fathom:sharing",
+      "@type": "xsd:string"
+    },
+    "share_password": {
+      "@id": "fathom:sharePassword",
+      "@type": "xsd:string"
+    },
+    "site_id": {
+      "@id": "fathom:siteId",
+      "@type": "xsd:string"
+    },
+    "milestone_date": {
+      "@id": "fathom:milestoneDate",
+      "@type": "xsd:date"
+    },
+    "created_at": {
+      "@id": "schema:dateCreated",
+      "@type": "xsd:dateTime"
+    },
+    "updated_at": {
+      "@id": "schema:dateModified",
+      "@type": "xsd:dateTime"
+    },
+    "total": {
+      "@id": "fathom:total",
+      "@type": "xsd:integer"
+    },
+    "has_more": {
+      "@id": "fathom:hasMore",
+      "@type": "xsd:boolean"
+    },
+    "data": {
+      "@id": "fathom:data",
+      "@container": "@list"
+    },
+    "content": {
+      "@id": "fathom:content",
+      "@container": "@list"
+    },
+    "referrers": {
+      "@id": "fathom:referrers",
+      "@container": "@list"
+    },
+
+    "pageviews": {
+      "@id": "fathom:pageviews",
+      "@type": "xsd:integer"
+    },
+    "visits": {
+      "@id": "fathom:visits",
+      "@type": "xsd:integer"
+    },
+    "uniques": {
+      "@id": "fathom:uniques",
+      "@type": "xsd:integer"
+    },
+    "avg_duration": {
+      "@id": "fathom:avgDuration",
+      "@type": "xsd:decimal"
+    },
+    "bounce_rate": {
+      "@id": "fathom:bounceRate",
+      "@type": "xsd:decimal"
+    },
+    "conversions": {
+      "@id": "fathom:conversions",
+      "@type": "xsd:integer"
+    },
+    "unique_conversions": {
+      "@id": "fathom:uniqueConversions",
+      "@type": "xsd:integer"
+    },
+    "value": {
+      "@id": "fathom:value",
+      "@type": "xsd:decimal"
+    },
+    "pathname": {
+      "@id": "fathom:pathname",
+      "@type": "xsd:string"
+    },
+    "referrer": {
+      "@id": "fathom:referrer",
+      "@type": "xsd:string"
+    },
+    "error": {
+      "@id": "fathom:error",
+      "@type": "xsd:string"
+    }
+  }
+}

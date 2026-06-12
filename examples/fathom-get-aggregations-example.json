@@ -1,0 +1,20 @@
+{
+  "data": [
+    {
+      "date": "2024-01-01T00:00:00Z",
+      "pageviews": "1240",
+      "visits": "834",
+      "uniques": "712",
+      "avg_duration": "145",
+      "bounce_rate": "0.42"
+    },
+    {
+      "date": "2024-01-02T00:00:00Z",
+      "pageviews": "998",
+      "visits": "621",
+      "uniques": "530",
+      "avg_duration": "132",
+      "bounce_rate": "0.48"
+    }
+  ]
+}

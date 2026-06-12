@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fathom/main/json-schema/fathom-event.json",
+  "title": "Fathom Event",
+  "description": "A custom event tracked for a Fathom Analytics site.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique event identifier."
+    },
+    "object": {
+      "type": "string",
+      "const": "event"
+    },
+    "name": {
+      "type": "string",
+      "description": "Event display name."
+    },
+    "site_id": {
+      "type": "string",
+      "description": "ID of the site this event belongs to."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the event was created."
+    }
+  },
+  "required": ["id", "object", "name", "site_id", "created_at"]
+}

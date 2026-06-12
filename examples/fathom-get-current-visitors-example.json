@@ -1,0 +1,14 @@
+{
+  "total": 47,
+  "content": [
+    { "pathname": "/", "total": 18 },
+    { "pathname": "/blog/privacy-first-analytics", "total": 12 },
+    { "pathname": "/pricing", "total": 9 },
+    { "pathname": "/docs", "total": 8 }
+  ],
+  "referrers": [
+    { "referrer": "google.com", "total": 22 },
+    { "referrer": "twitter.com", "total": 11 },
+    { "referrer": "direct", "total": 14 }
+  ]
+}

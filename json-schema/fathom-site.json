@@ -1,0 +1,32 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fathom/main/json-schema/fathom-site.json",
+  "title": "Fathom Site",
+  "description": "A website registered in Fathom Analytics.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique site identifier."
+    },
+    "object": {
+      "type": "string",
+      "const": "site"
+    },
+    "name": {
+      "type": "string",
+      "description": "Site display name."
+    },
+    "sharing": {
+      "type": "string",
+      "enum": ["none", "private", "public"],
+      "description": "Dashboard sharing setting."
+    },
+    "created_at": {
+      "type": "string",
+      "format": "date-time",
+      "description": "ISO 8601 timestamp when the site was created."
+    }
+  },
+  "required": ["id", "object", "name", "sharing", "created_at"]
+}

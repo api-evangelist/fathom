@@ -1,0 +1,27 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/fathom/main/json-schema/fathom-account.json",
+  "title": "Fathom Account",
+  "description": "A Fathom Analytics account.",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique account identifier."
+    },
+    "object": {
+      "type": "string",
+      "const": "account"
+    },
+    "name": {
+      "type": "string",
+      "description": "Account display name."
+    },
+    "email": {
+      "type": "string",
+      "format": "email",
+      "description": "Account email address."
+    }
+  },
+  "required": ["id", "object", "name", "email"]
+}

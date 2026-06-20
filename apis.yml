@@ -12,7 +12,7 @@ description: >
   are generated in the account settings area and support configurable
   permissions scoped to admin, all sites, or individual sites.
 type: Index
-image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
 tags:
   - Analytics
   - Privacy
@@ -37,7 +37,7 @@ apis:
       requests per hour for site and event management endpoints, and 10
       requests per minute for aggregation and current-visitors reporting
       endpoints.
-    image: https://kinlane-productions.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
     humanURL: https://usefathom.com/api
     baseURL: https://api.usefathom.com/v1
     tags:

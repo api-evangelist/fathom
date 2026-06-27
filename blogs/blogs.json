@@ -1,12 +1,13 @@
 {
-  "name": "Fathom Analytics Blog",
-  "description": "Blog for Fathom Analytics covering product updates, privacy, analytics, and company news.",
-  "url": "https://usefathom.com/blog",
-  "rss": "https://usefathom.com/blog/feed.xml",
-  "last_checked": "2026-06-12",
-  "posts": [],
   "repo": "fathom",
   "feeds": [
+    {
+      "source": "https://usefathom.com/blog/feed.xml",
+      "feed_url": "https://usefathom.com/blog/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    },
     {
       "source": "https://usefathom.com/api",
       "feed_url": "https://usefathom.com/api",
@@ -29,6 +30,6 @@
       "method": "none"
     }
   ],
-  "post_count": 0,
-  "fetched": "2026-06-14T20:42:17Z"
+  "fetched": "2026-06-27T12:03:07Z",
+  "post_count": 20
 }

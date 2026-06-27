@@ -65,7 +65,7 @@ common:
     url: https://usefathom.com/blog
   - type: BlogFeed
     url: https://usefathom.com/blog/feed.xml
-  - type: Changelog
+  - type: ChangeLog
     url: https://usefathom.com/changelog
   - type: ChangelogFeed
     url: https://usefathom.com/changelog/feed.xml

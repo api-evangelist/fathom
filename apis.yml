@@ -55,6 +55,12 @@ apis:
       - FN: Fathom Analytics Support
         email: support@usefathom.com
 common:
+  - type: TrustCenter
+    url: security/fathom-trust-center.yml
+  - type: DomainSecurity
+    url: security/fathom-domain-security.yml
+  - type: Authentication
+    url: authentication/fathom-authentication.yml
   - type: Website
     url: https://usefathom.com/
   - type: Documentation

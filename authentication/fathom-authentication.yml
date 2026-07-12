@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/fathom-analytics-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: BearerAuth
+  type: http
+  scheme: bearer
+  description: API key generated in account settings at https://app.usefathom.com/api
+  sources:
+  - openapi/fathom-analytics-api-openapi.yml

@@ -16,20 +16,20 @@
       "method": "none"
     },
     {
-      "source": "https://usefathom.com/blog",
-      "feed_url": "https://usefathom.com/blog/feed.xml",
-      "title": "",
-      "saved": 0,
-      "method": "discovered"
-    },
-    {
       "source": "https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/json-ld/fathom-context.jsonld",
       "feed_url": "https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/json-ld/fathom-context.jsonld",
       "title": "",
       "saved": 0,
       "method": "none"
+    },
+    {
+      "source": "https://usefathom.com/blog",
+      "feed_url": "https://usefathom.com/blog/feed.xml",
+      "title": "",
+      "saved": 0,
+      "method": "discovered"
     }
   ],
-  "fetched": "2026-06-27T12:03:07Z",
-  "post_count": 20
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 22
 }

@@ -55,6 +55,8 @@ apis:
       - FN: Fathom Analytics Support
         email: support@usefathom.com
 common:
+  - type: AgenticAccess
+    url: agentic-access/fathom-agentic-access.yml
   - type: TrustCenter
     url: security/fathom-trust-center.yml
   - type: DomainSecurity

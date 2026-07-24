@@ -1,0 +1,284 @@
+openapi: 3.0.3
+info:
+  title: Fathom Analytics REST Account Sites API
+  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
+
+    '
+  version: '1'
+  contact:
+    name: Fathom Analytics Support
+    email: support@usefathom.com
+  termsOfService: https://usefathom.com/terms
+  license:
+    name: Proprietary
+servers:
+- url: https://api.usefathom.com/v1
+  description: Fathom Analytics API v1
+security:
+- BearerAuth: []
+tags:
+- name: Sites
+  description: Site management
+paths:
+  /sites:
+    get:
+      operationId: listSites
+      summary: List sites
+      description: Returns a paginated list of sites belonging to the account.
+      tags:
+      - Sites
+      parameters:
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/StartingAfter'
+      - $ref: '#/components/parameters/EndingBefore'
+      responses:
+        '200':
+          description: Paginated list of sites
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SiteList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createSite
+      summary: Create site
+      description: Creates a new site.
+      tags:
+      - Sites
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteCreate'
+      responses:
+        '200':
+          description: Created site object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /sites/{site_id}:
+    get:
+      operationId: getSite
+      summary: Get site
+      description: Returns a single site by ID.
+      tags:
+      - Sites
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Site object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateSite
+      summary: Update site
+      description: Updates a site's name or sharing settings.
+      tags:
+      - Sites
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SiteUpdate'
+      responses:
+        '200':
+          description: Updated site object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Site'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteSite
+      summary: Delete site
+      description: Permanently deletes a site and all its data.
+      tags:
+      - Sites
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /sites/{site_id}/data:
+    delete:
+      operationId: wipeSiteData
+      summary: Wipe site data
+      description: Permanently wipes all analytics data for a site without deleting the site itself.
+      tags:
+      - Sites
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    SiteUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the site.
+        sharing:
+          type: string
+          enum:
+          - none
+          - private
+          - public
+        share_password:
+          type: string
+    SiteCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the site.
+        sharing:
+          type: string
+          enum:
+          - none
+          - private
+          - public
+          description: Sharing setting for the site dashboard.
+        share_password:
+          type: string
+          description: Password for private sharing (required when sharing is private).
+    SiteList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Site'
+        has_more:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+    Site:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique site identifier.
+        object:
+          type: string
+          example: site
+        name:
+          type: string
+          description: Site display name.
+        sharing:
+          type: string
+          enum:
+          - none
+          - private
+          - public
+          description: Sharing setting for the site dashboard.
+        created_at:
+          type: string
+          format: date-time
+          description: ISO 8601 timestamp when the site was created.
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of results per page (1-100, default 10).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
+      schema:
+        type: string
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: Unique identifier for the site.
+      schema:
+        type: string
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated in account settings at https://app.usefathom.com/api

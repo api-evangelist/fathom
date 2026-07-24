@@ -1,0 +1,232 @@
+openapi: 3.0.3
+info:
+  title: Fathom Analytics REST Account Reports API
+  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
+
+    '
+  version: '1'
+  contact:
+    name: Fathom Analytics Support
+    email: support@usefathom.com
+  termsOfService: https://usefathom.com/terms
+  license:
+    name: Proprietary
+servers:
+- url: https://api.usefathom.com/v1
+  description: Fathom Analytics API v1
+security:
+- BearerAuth: []
+tags:
+- name: Reports
+  description: Aggregation reports and current visitor counts
+paths:
+  /aggregations:
+    get:
+      operationId: getAggregations
+      summary: Get aggregations
+      description: 'Returns aggregated analytics data. Rate limited to 10 requests per minute. Supports grouping by time period and dimension fields, sorting, filtering, and timezone-aware date ranges.
+
+        '
+      tags:
+      - Reports
+      parameters:
+      - name: entity
+        in: query
+        required: true
+        description: The entity type to aggregate.
+        schema:
+          type: string
+          enum:
+          - pageview
+          - event
+      - name: entity_id
+        in: query
+        required: false
+        description: Required when entity is "pageview". The site ID.
+        schema:
+          type: string
+      - name: site_id
+        in: query
+        required: false
+        description: Required when entity is "event". The site ID.
+        schema:
+          type: string
+      - name: entity_name
+        in: query
+        required: false
+        description: Required when entity is "event". The event name.
+        schema:
+          type: string
+      - name: aggregates
+        in: query
+        required: true
+        description: 'Comma-separated list of aggregate metrics. For pageviews: visits, uniques, pageviews, avg_duration, bounce_rate. For events: conversions, unique_conversions, value.
+
+          '
+        schema:
+          type: string
+      - name: date_grouping
+        in: query
+        required: false
+        description: Group results by time period.
+        schema:
+          type: string
+          enum:
+          - hour
+          - day
+          - month
+          - year
+      - name: field_grouping
+        in: query
+        required: false
+        description: 'Dimension field to group by. Allowed values: hostname, pathname, referrer_hostname, browser, country_code, city, device_type, operating_system, utm_source, utm_medium, utm_campaign, utm_content, utm_term, keyword.
+
+          '
+        schema:
+          type: string
+      - name: sort_by
+        in: query
+        required: false
+        description: Sort order in field:asc or field:desc format.
+        schema:
+          type: string
+      - name: timezone
+        in: query
+        required: false
+        description: IANA TZ database timezone name (e.g. America/New_York).
+        schema:
+          type: string
+      - name: date_from
+        in: query
+        required: false
+        description: Start of date range as Unix timestamp.
+        schema:
+          type: integer
+      - name: date_to
+        in: query
+        required: false
+        description: End of date range as Unix timestamp.
+        schema:
+          type: integer
+      - name: limit
+        in: query
+        required: false
+        description: Maximum number of results to return.
+        schema:
+          type: integer
+      - name: filters
+        in: query
+        required: false
+        description: 'JSON-encoded array of filter objects with field, operator (is, is not, is like, matching, not matching), and value keys.
+
+          '
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Aggregated analytics results
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AggregationResult'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /current_visitors:
+    get:
+      operationId: getCurrentVisitors
+      summary: Get current visitors
+      description: 'Returns the number of visitors currently on a site. Rate limited to 10 requests per minute.
+
+        '
+      tags:
+      - Reports
+      parameters:
+      - name: site_id
+        in: query
+        required: true
+        description: The site ID to query.
+        schema:
+          type: string
+      - name: detailed
+        in: query
+        required: false
+        description: If true, returns breakdown by page and referrer.
+        schema:
+          type: boolean
+      responses:
+        '200':
+          description: Current visitor count and optional detail
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CurrentVisitors'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    CurrentVisitors:
+      type: object
+      properties:
+        total:
+          type: integer
+          description: Total number of current visitors on the site.
+        content:
+          type: array
+          description: Per-page breakdown (when detailed=true).
+          items:
+            type: object
+            properties:
+              pathname:
+                type: string
+              total:
+                type: integer
+        referrers:
+          type: array
+          description: Per-referrer breakdown (when detailed=true).
+          items:
+            type: object
+            properties:
+              referrer:
+                type: string
+              total:
+                type: integer
+    AggregationResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+              description: Dynamic keys matching the requested aggregates and groupings.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated in account settings at https://app.usefathom.com/api

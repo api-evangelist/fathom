@@ -1,0 +1,76 @@
+openapi: 3.0.3
+info:
+  title: Fathom Analytics REST Account API
+  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
+
+    '
+  version: '1'
+  contact:
+    name: Fathom Analytics Support
+    email: support@usefathom.com
+  termsOfService: https://usefathom.com/terms
+  license:
+    name: Proprietary
+servers:
+- url: https://api.usefathom.com/v1
+  description: Fathom Analytics API v1
+security:
+- BearerAuth: []
+tags:
+- name: Account
+  description: Account information
+paths:
+  /account:
+    get:
+      operationId: getAccount
+      summary: Get account
+      description: Returns account information for the authenticated user.
+      tags:
+      - Account
+      responses:
+        '200':
+          description: Account object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Account'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+    Account:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique account identifier.
+        object:
+          type: string
+          example: account
+        name:
+          type: string
+          description: Account display name.
+        email:
+          type: string
+          format: email
+          description: Account email address.
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated in account settings at https://app.usefathom.com/api

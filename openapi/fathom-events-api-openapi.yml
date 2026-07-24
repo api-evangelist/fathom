@@ -1,0 +1,279 @@
+openapi: 3.0.3
+info:
+  title: Fathom Analytics REST Account Events API
+  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
+
+    '
+  version: '1'
+  contact:
+    name: Fathom Analytics Support
+    email: support@usefathom.com
+  termsOfService: https://usefathom.com/terms
+  license:
+    name: Proprietary
+servers:
+- url: https://api.usefathom.com/v1
+  description: Fathom Analytics API v1
+security:
+- BearerAuth: []
+tags:
+- name: Events
+  description: Event management per site
+paths:
+  /sites/{site_id}/events:
+    get:
+      operationId: listEvents
+      summary: List events
+      description: Returns a paginated list of events for a site.
+      tags:
+      - Events
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/StartingAfter'
+      - $ref: '#/components/parameters/EndingBefore'
+      responses:
+        '200':
+          description: Paginated list of events
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createEvent
+      summary: Create event
+      description: Creates a new custom event for a site.
+      tags:
+      - Events
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventCreate'
+      responses:
+        '200':
+          description: Created event object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /sites/{site_id}/events/{event_id}:
+    get:
+      operationId: getEvent
+      summary: Get event
+      description: Returns a single event by ID.
+      tags:
+      - Events
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/EventId'
+      responses:
+        '200':
+          description: Event object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateEvent
+      summary: Update event
+      description: Updates an event's name.
+      tags:
+      - Events
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/EventId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EventUpdate'
+      responses:
+        '200':
+          description: Updated event object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEvent
+      summary: Delete event
+      description: Permanently deletes an event.
+      tags:
+      - Events
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/EventId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /sites/{site_id}/events/{event_id}/data:
+    delete:
+      operationId: wipeEventData
+      summary: Wipe event data
+      description: Permanently wipes all data for an event without deleting the event itself.
+      tags:
+      - Events
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/EventId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    EventUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the event.
+    EventCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the event.
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique event identifier.
+        object:
+          type: string
+          example: event
+        name:
+          type: string
+          description: Event display name.
+        site_id:
+          type: string
+          description: ID of the site this event belongs to.
+        created_at:
+          type: string
+          format: date-time
+    EventList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        has_more:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+  parameters:
+    EventId:
+      name: event_id
+      in: path
+      required: true
+      description: Unique identifier for the event.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of results per page (1-100, default 10).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
+      schema:
+        type: string
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: Unique identifier for the site.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated in account settings at https://app.usefathom.com/api

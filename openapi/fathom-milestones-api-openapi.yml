@@ -1,0 +1,269 @@
+openapi: 3.0.3
+info:
+  title: Fathom Analytics REST Account Milestones API
+  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
+
+    '
+  version: '1'
+  contact:
+    name: Fathom Analytics Support
+    email: support@usefathom.com
+  termsOfService: https://usefathom.com/terms
+  license:
+    name: Proprietary
+servers:
+- url: https://api.usefathom.com/v1
+  description: Fathom Analytics API v1
+security:
+- BearerAuth: []
+tags:
+- name: Milestones
+  description: Milestone management per site
+paths:
+  /sites/{site_id}/milestones:
+    get:
+      operationId: listMilestones
+      summary: List milestones
+      description: Returns a paginated list of milestones for a site.
+      tags:
+      - Milestones
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/Limit'
+      - $ref: '#/components/parameters/StartingAfter'
+      - $ref: '#/components/parameters/EndingBefore'
+      responses:
+        '200':
+          description: Paginated list of milestones
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MilestoneList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: createMilestone
+      summary: Create milestone
+      description: Creates a new milestone for a site.
+      tags:
+      - Milestones
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MilestoneCreate'
+      responses:
+        '200':
+          description: Created milestone object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Milestone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+  /sites/{site_id}/milestones/{milestone_id}:
+    get:
+      operationId: getMilestone
+      summary: Get milestone
+      description: Returns a single milestone by ID.
+      tags:
+      - Milestones
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/MilestoneId'
+      responses:
+        '200':
+          description: Milestone object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Milestone'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    post:
+      operationId: updateMilestone
+      summary: Update milestone
+      description: Updates a milestone's name or date.
+      tags:
+      - Milestones
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/MilestoneId'
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MilestoneUpdate'
+      responses:
+        '200':
+          description: Updated milestone object
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Milestone'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteMilestone
+      summary: Delete milestone
+      description: Permanently deletes a milestone.
+      tags:
+      - Milestones
+      parameters:
+      - $ref: '#/components/parameters/SiteId'
+      - $ref: '#/components/parameters/MilestoneId'
+      responses:
+        '200':
+          description: Empty object on success
+          content:
+            application/json:
+              schema:
+                type: object
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    MilestoneUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        milestone_date:
+          type: string
+          format: date
+    MilestoneCreate:
+      type: object
+      required:
+      - name
+      - milestone_date
+      properties:
+        name:
+          type: string
+          description: Display name for the milestone.
+        milestone_date:
+          type: string
+          format: date
+          description: Date of the milestone (YYYY-MM-DD).
+    MilestoneList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Milestone'
+        has_more:
+          type: boolean
+    Milestone:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique milestone identifier.
+        object:
+          type: string
+          example: milestone
+        name:
+          type: string
+          description: Milestone display name.
+        milestone_date:
+          type: string
+          format: date
+          description: Date of the milestone (YYYY-MM-DD).
+        created_at:
+          type: string
+          format: date-time
+        updated_at:
+          type: string
+          format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+  parameters:
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of results per page (1-100, default 10).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
+      schema:
+        type: string
+    MilestoneId:
+      name: milestone_id
+      in: path
+      required: true
+      description: Unique identifier for the milestone.
+      schema:
+        type: string
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: Unique identifier for the site.
+      schema:
+        type: string
+  responses:
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: API key generated in account settings at https://app.usefathom.com/api

@@ -1,0 +1,22 @@
+{
+  "provider": "fathom",
+  "sources": [
+    "fathom-account-api-openapi.yml",
+    "fathom-events-api-openapi.yml",
+    "fathom-milestones-api-openapi.yml",
+    "fathom-reports-api-openapi.yml",
+    "fathom-sites-api-openapi.yml"
+  ],
+  "outputs": [
+    "fathom-account-api-openapi.yml",
+    "fathom-events-api-openapi.yml",
+    "fathom-milestones-api-openapi.yml",
+    "fathom-reports-api-openapi.yml",
+    "fathom-sites-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}

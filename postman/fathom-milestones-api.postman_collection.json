@@ -1,0 +1,1373 @@
+{
+  "info": {
+    "_postman_id": "80c754ef-ce04-4c90-b68e-c18d9292130a",
+    "name": "Fathom Analytics REST Account Milestones API",
+    "description": "Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.\n\n\nContact Support:\n Name: Fathom Analytics Support\n Email: support@usefathom.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:36:51.000Z",
+    "updatedAt": "2026-07-28T01:36:51.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-80c754ef-ce04-4c90-b68e-c18d9292130a"
+  },
+  "item": [
+    {
+      "name": "sites",
+      "item": [
+        {
+          "name": "{site_id}",
+          "item": [
+            {
+              "name": "milestones",
+              "item": [
+                {
+                  "name": "{milestone_id}",
+                  "item": [
+                    {
+                      "name": "Get milestone",
+                      "id": "afec83f2-8405-43af-9139-53bc4e7a7e29",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones",
+                            ":milestone_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "c9956d50-5774-4131-9ebe-9d7737a321b2",
+                              "key": "site_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the site."
+                            },
+                            {
+                              "id": "006e9bcc-1453-4d02-923c-0a0bddde2691",
+                              "key": "milestone_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the milestone."
+                            }
+                          ]
+                        },
+                        "description": "Returns a single milestone by ID."
+                      },
+                      "response": [
+                        {
+                          "id": "e759d0fc-0d94-4dd1-afae-f61fcf0fac42",
+                          "name": "Milestone object",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-e759d0fc-0d94-4dd1-afae-f61fcf0fac42"
+                        },
+                        {
+                          "id": "ba984216-58a3-42ef-b519-45970543e8f2",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-ba984216-58a3-42ef-b519-45970543e8f2"
+                        },
+                        {
+                          "id": "375df2e3-9542-48e3-afd7-f4119848c762",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-375df2e3-9542-48e3-afd7-f4119848c762"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-afec83f2-8405-43af-9139-53bc4e7a7e29"
+                    },
+                    {
+                      "name": "Update milestone",
+                      "id": "26a5f6a6-458a-469e-a036-c36492de2d18",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones",
+                            ":milestone_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "ddde1f05-83e4-48ab-aaab-50b59e07009f",
+                              "key": "site_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the site."
+                            },
+                            {
+                              "id": "aa580594-cddd-488e-aca9-210a068b8a52",
+                              "key": "milestone_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the milestone."
+                            }
+                          ]
+                        },
+                        "description": "Updates a milestone's name or date."
+                      },
+                      "response": [
+                        {
+                          "id": "02f83e91-8839-4397-ae40-8838d1e2ec2b",
+                          "name": "Updated milestone object",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-02f83e91-8839-4397-ae40-8838d1e2ec2b"
+                        },
+                        {
+                          "id": "1e303bc6-722e-45f0-ba9b-fd20aa3d66f2",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-1e303bc6-722e-45f0-ba9b-fd20aa3d66f2"
+                        },
+                        {
+                          "id": "fd513a93-6c9f-41d4-9205-06a9d3539378",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-fd513a93-6c9f-41d4-9205-06a9d3539378"
+                        },
+                        {
+                          "id": "c30562cd-d7b2-4832-b166-d332b0a69347",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-c30562cd-d7b2-4832-b166-d332b0a69347"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-26a5f6a6-458a-469e-a036-c36492de2d18"
+                    },
+                    {
+                      "name": "Delete milestone",
+                      "id": "8fc90600-23f2-48fa-a0f1-2f02362646eb",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones",
+                            ":milestone_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "3a5de4f1-0272-44b6-ac2c-57954e2cc91c",
+                              "key": "site_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the site."
+                            },
+                            {
+                              "id": "a822f6b1-0611-4e32-bc70-25e100cf18cb",
+                              "key": "milestone_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the milestone."
+                            }
+                          ]
+                        },
+                        "description": "Permanently deletes a milestone."
+                      },
+                      "response": [
+                        {
+                          "id": "2e695434-8fe6-4a04-b799-fbddfb559a94",
+                          "name": "Empty object on success",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-2e695434-8fe6-4a04-b799-fbddfb559a94"
+                        },
+                        {
+                          "id": "c631efe7-ab3e-4742-879d-3b8fb014b7ac",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-c631efe7-ab3e-4742-879d-3b8fb014b7ac"
+                        },
+                        {
+                          "id": "cdc261b2-1783-4103-8b5d-d0f8b1ba1c09",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/milestones/:milestone_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "milestones",
+                                ":milestone_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "milestone_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:52.000Z",
+                          "updatedAt": "2026-07-28T01:36:52.000Z",
+                          "uid": "35240-cdc261b2-1783-4103-8b5d-d0f8b1ba1c09"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-8fc90600-23f2-48fa-a0f1-2f02362646eb"
+                    }
+                  ],
+                  "id": "c54086ba-479f-402c-83fe-49bfeafb71c8",
+                  "createdAt": "2026-07-28T01:36:52.000Z",
+                  "updatedAt": "2026-07-28T01:36:52.000Z",
+                  "uid": "35240-c54086ba-479f-402c-83fe-49bfeafb71c8"
+                },
+                {
+                  "name": "List milestones",
+                  "id": "09328c88-93fc-463e-a040-03b6b78496db",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id/milestones?limit=10&starting_after=<string>&ending_before=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id",
+                        "milestones"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of results per page (1-100, default 10).",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                          "key": "starting_after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                          "key": "ending_before",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "9ab34652-8272-4c0b-8c51-556009c09d88",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier for the site."
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of milestones for a site."
+                  },
+                  "response": [
+                    {
+                      "id": "59c59433-6116-45ce-9568-a3f2f175bfc9",
+                      "name": "Paginated list of milestones",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones?limit=10&starting_after=<string>&ending_before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page (1-100, default 10).",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                              "key": "starting_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                              "key": "ending_before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"object\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"name\": \"<string>\",\n      \"milestone_date\": \"<date>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"name\": \"<string>\",\n      \"milestone_date\": \"<date>\",\n      \"created_at\": \"<dateTime>\",\n      \"updated_at\": \"<dateTime>\"\n    }\n  ],\n  \"has_more\": \"<boolean>\"\n}",
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-59c59433-6116-45ce-9568-a3f2f175bfc9"
+                    },
+                    {
+                      "id": "2bf3767e-8600-47da-8e1c-9d957bb11380",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones?limit=10&starting_after=<string>&ending_before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page (1-100, default 10).",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                              "key": "starting_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                              "key": "ending_before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-2bf3767e-8600-47da-8e1c-9d957bb11380"
+                    },
+                    {
+                      "id": "423962da-7d0d-4380-b301-6136ba462960",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones?limit=10&starting_after=<string>&ending_before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page (1-100, default 10).",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                              "key": "starting_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                              "key": "ending_before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-423962da-7d0d-4380-b301-6136ba462960"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:36:52.000Z",
+                  "updatedAt": "2026-07-28T01:36:52.000Z",
+                  "uid": "35240-09328c88-93fc-463e-a040-03b6b78496db"
+                },
+                {
+                  "name": "Create milestone",
+                  "id": "08eff4ed-f24b-4405-ae15-c28771e40498",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id/milestones",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id",
+                        "milestones"
+                      ],
+                      "variable": [
+                        {
+                          "id": "361e1d93-e9cf-4908-bf04-f34c1048d1d0",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier for the site."
+                        }
+                      ]
+                    },
+                    "description": "Creates a new milestone for a site."
+                  },
+                  "response": [
+                    {
+                      "id": "43b754b0-566d-416e-ae9d-8a36c801dab4",
+                      "name": "Created milestone object",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\",\n  \"created_at\": \"<dateTime>\",\n  \"updated_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-43b754b0-566d-416e-ae9d-8a36c801dab4"
+                    },
+                    {
+                      "id": "517f7c2c-7ade-4185-ab15-3c481bf97ccd",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-517f7c2c-7ade-4185-ab15-3c481bf97ccd"
+                    },
+                    {
+                      "id": "311a8a20-9f42-4c4c-bc06-c99bcb1e9e08",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-311a8a20-9f42-4c4c-bc06-c99bcb1e9e08"
+                    },
+                    {
+                      "id": "1d1427bb-0dd5-4eb2-a1cf-fdd45de9249b",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\",\n  \"milestone_date\": \"<date>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/milestones",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "milestones"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:52.000Z",
+                      "updatedAt": "2026-07-28T01:36:52.000Z",
+                      "uid": "35240-1d1427bb-0dd5-4eb2-a1cf-fdd45de9249b"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:36:52.000Z",
+                  "updatedAt": "2026-07-28T01:36:52.000Z",
+                  "uid": "35240-08eff4ed-f24b-4405-ae15-c28771e40498"
+                }
+              ],
+              "id": "0d4d7629-a4da-445e-b5ff-f845a61e293d",
+              "createdAt": "2026-07-28T01:36:52.000Z",
+              "updatedAt": "2026-07-28T01:36:52.000Z",
+              "uid": "35240-0d4d7629-a4da-445e-b5ff-f845a61e293d"
+            }
+          ],
+          "id": "30583695-0a02-4a8d-a1c6-74746d7e627b",
+          "createdAt": "2026-07-28T01:36:52.000Z",
+          "updatedAt": "2026-07-28T01:36:52.000Z",
+          "uid": "35240-30583695-0a02-4a8d-a1c6-74746d7e627b"
+        }
+      ],
+      "id": "0c2dbc0d-4fe2-463f-8793-2b417c8e43d0",
+      "createdAt": "2026-07-28T01:36:52.000Z",
+      "updatedAt": "2026-07-28T01:36:52.000Z",
+      "uid": "35240-0c2dbc0d-4fe2-463f-8793-2b417c8e43d0"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.usefathom.com/v1"
+    }
+  ]
+}

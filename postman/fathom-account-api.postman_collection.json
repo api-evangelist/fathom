@@ -1,0 +1,154 @@
+{
+  "info": {
+    "_postman_id": "6c4051b3-91b7-430a-8791-c8f87708a25b",
+    "name": "Fathom Analytics REST Account API",
+    "description": "Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.\n\n\nContact Support:\n Name: Fathom Analytics Support\n Email: support@usefathom.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:36:46.000Z",
+    "updatedAt": "2026-07-28T01:36:47.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-6c4051b3-91b7-430a-8791-c8f87708a25b"
+  },
+  "item": [
+    {
+      "name": "account",
+      "item": [
+        {
+          "name": "Get account",
+          "id": "3b967461-c458-484a-ba54-8c244b8ab788",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/account",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "account"
+              ]
+            },
+            "description": "Returns account information for the authenticated user."
+          },
+          "response": [
+            {
+              "id": "549f4713-bdff-42ca-88cc-532763e59909",
+              "name": "Account object",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/account",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"email\": \"<email>\"\n}",
+              "createdAt": "2026-07-28T01:36:47.000Z",
+              "updatedAt": "2026-07-28T01:36:47.000Z",
+              "uid": "35240-549f4713-bdff-42ca-88cc-532763e59909"
+            },
+            {
+              "id": "3905ad8c-ebd5-4b57-8468-cb03b55bfa7d",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/account",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "account"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:47.000Z",
+              "updatedAt": "2026-07-28T01:36:47.000Z",
+              "uid": "35240-3905ad8c-ebd5-4b57-8468-cb03b55bfa7d"
+            }
+          ],
+          "createdAt": "2026-07-28T01:36:47.000Z",
+          "updatedAt": "2026-07-28T01:36:47.000Z",
+          "uid": "35240-3b967461-c458-484a-ba54-8c244b8ab788"
+        }
+      ],
+      "id": "18beb92e-74c8-4fbb-bd83-11d0a1efb330",
+      "createdAt": "2026-07-28T01:36:47.000Z",
+      "updatedAt": "2026-07-28T01:36:47.000Z",
+      "uid": "35240-18beb92e-74c8-4fbb-bd83-11d0a1efb330"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.usefathom.com/v1"
+    }
+  ]
+}

@@ -1,0 +1,1593 @@
+{
+  "info": {
+    "_postman_id": "abd00a5c-b9e7-4859-a0ee-18b12fe2dbf0",
+    "name": "Fathom Analytics REST Account Events API",
+    "description": "Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.\n\n\nContact Support:\n Name: Fathom Analytics Support\n Email: support@usefathom.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:36:50.000Z",
+    "updatedAt": "2026-07-28T01:36:50.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-abd00a5c-b9e7-4859-a0ee-18b12fe2dbf0"
+  },
+  "item": [
+    {
+      "name": "sites",
+      "item": [
+        {
+          "name": "{site_id}",
+          "item": [
+            {
+              "name": "events",
+              "item": [
+                {
+                  "name": "{event_id}",
+                  "item": [
+                    {
+                      "name": "data",
+                      "item": [
+                        {
+                          "name": "Wipe event data",
+                          "id": "60e64411-7cbc-4434-9622-5a99d027af95",
+                          "protocolProfileBehavior": {
+                            "disableBodyPruning": true
+                          },
+                          "request": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id/data",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id",
+                                "data"
+                              ],
+                              "variable": [
+                                {
+                                  "id": "de0b36a4-9b5c-4cb2-ac37-8d2066c47c4e",
+                                  "key": "site_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier for the site."
+                                },
+                                {
+                                  "id": "6a97ed80-21e3-42be-915d-82248c91518c",
+                                  "key": "event_id",
+                                  "value": "<string>",
+                                  "description": "(Required) Unique identifier for the event."
+                                }
+                              ]
+                            },
+                            "description": "Permanently wipes all data for an event without deleting the event itself."
+                          },
+                          "response": [
+                            {
+                              "id": "94158b9d-3ff6-498c-a796-c76f873125ca",
+                              "name": "Empty object on success",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/sites/:site_id/events/:event_id/data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "sites",
+                                    ":site_id",
+                                    "events",
+                                    ":event_id",
+                                    "data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    },
+                                    {
+                                      "key": "event_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "OK",
+                              "code": 200,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{}",
+                              "createdAt": "2026-07-28T01:36:51.000Z",
+                              "updatedAt": "2026-07-28T01:36:51.000Z",
+                              "uid": "35240-94158b9d-3ff6-498c-a796-c76f873125ca"
+                            },
+                            {
+                              "id": "f92dd8e6-8854-4125-9164-2981d037b475",
+                              "name": "Missing or invalid API key",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/sites/:site_id/events/:event_id/data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "sites",
+                                    ":site_id",
+                                    "events",
+                                    ":event_id",
+                                    "data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    },
+                                    {
+                                      "key": "event_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Unauthorized",
+                              "code": 401,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:36:51.000Z",
+                              "updatedAt": "2026-07-28T01:36:51.000Z",
+                              "uid": "35240-f92dd8e6-8854-4125-9164-2981d037b475"
+                            },
+                            {
+                              "id": "cb10e7f5-2414-41f8-a2b5-0a40404bc7fa",
+                              "name": "Resource not found",
+                              "originalRequest": {
+                                "method": "DELETE",
+                                "header": [
+                                  {
+                                    "key": "Accept",
+                                    "value": "application/json"
+                                  },
+                                  {
+                                    "description": "Added as a part of security scheme: bearer",
+                                    "key": "Authorization",
+                                    "value": "Bearer <token>"
+                                  }
+                                ],
+                                "url": {
+                                  "raw": "{{baseUrl}}/sites/:site_id/events/:event_id/data",
+                                  "host": [
+                                    "{{baseUrl}}"
+                                  ],
+                                  "path": [
+                                    "sites",
+                                    ":site_id",
+                                    "events",
+                                    ":event_id",
+                                    "data"
+                                  ],
+                                  "variable": [
+                                    {
+                                      "key": "site_id"
+                                    },
+                                    {
+                                      "key": "event_id"
+                                    }
+                                  ]
+                                }
+                              },
+                              "status": "Not Found",
+                              "code": 404,
+                              "_postman_previewlanguage": "json",
+                              "header": [
+                                {
+                                  "key": "Content-Type",
+                                  "value": "application/json"
+                                }
+                              ],
+                              "cookie": [],
+                              "responseTime": null,
+                              "body": "{\n  \"error\": \"<string>\"\n}",
+                              "createdAt": "2026-07-28T01:36:51.000Z",
+                              "updatedAt": "2026-07-28T01:36:51.000Z",
+                              "uid": "35240-cb10e7f5-2414-41f8-a2b5-0a40404bc7fa"
+                            }
+                          ],
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-60e64411-7cbc-4434-9622-5a99d027af95"
+                        }
+                      ],
+                      "id": "21e89cae-8b49-44dc-801f-679819cadff9",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-21e89cae-8b49-44dc-801f-679819cadff9"
+                    },
+                    {
+                      "name": "Get event",
+                      "id": "9a068b44-048f-487e-a679-5a5e87c1ea26",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events",
+                            ":event_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "b0ec6d9c-d76f-472c-9d53-8185c4132898",
+                              "key": "site_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the site."
+                            },
+                            {
+                              "id": "631bdf7f-db99-465d-bde9-371aa6047885",
+                              "key": "event_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the event."
+                            }
+                          ]
+                        },
+                        "description": "Returns a single event by ID."
+                      },
+                      "response": [
+                        {
+                          "id": "67b0ceda-b8a1-4d96-911b-6a8868744f5f",
+                          "name": "Event object",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"site_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-67b0ceda-b8a1-4d96-911b-6a8868744f5f"
+                        },
+                        {
+                          "id": "35cba754-f3f4-464d-91cb-fbf9a2f6def6",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-35cba754-f3f4-464d-91cb-fbf9a2f6def6"
+                        },
+                        {
+                          "id": "948317ba-a790-40cf-a6da-a38fcc1aa66b",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "GET",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-948317ba-a790-40cf-a6da-a38fcc1aa66b"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-9a068b44-048f-487e-a679-5a5e87c1ea26"
+                    },
+                    {
+                      "name": "Update event",
+                      "id": "1af53a27-1ca6-4264-a0f6-d2510b37e273",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events",
+                            ":event_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "4c1e04f1-a411-4a1b-a4cc-460e67454534",
+                              "key": "site_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the site."
+                            },
+                            {
+                              "id": "92cdea50-09cc-40ca-9d73-2f695992f4cd",
+                              "key": "event_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the event."
+                            }
+                          ]
+                        },
+                        "description": "Updates an event's name."
+                      },
+                      "response": [
+                        {
+                          "id": "773f50ec-67f2-412d-bfeb-2ee5d6f40705",
+                          "name": "Updated event object",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"site_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-773f50ec-67f2-412d-bfeb-2ee5d6f40705"
+                        },
+                        {
+                          "id": "136a0279-992e-4f59-91e0-745beb31fa00",
+                          "name": "Bad request",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Bad Request",
+                          "code": 400,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-136a0279-992e-4f59-91e0-745beb31fa00"
+                        },
+                        {
+                          "id": "7e31ee3d-020e-44dc-9755-eeb9a0e347a3",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-7e31ee3d-020e-44dc-9755-eeb9a0e347a3"
+                        },
+                        {
+                          "id": "99f9a1f5-585f-4ed9-b994-10445719f8be",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "POST",
+                            "header": [
+                              {
+                                "key": "Content-Type",
+                                "value": "application/json"
+                              },
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "body": {
+                              "mode": "raw",
+                              "raw": "{\n  \"name\": \"<string>\"\n}",
+                              "options": {
+                                "raw": {
+                                  "headerFamily": "json",
+                                  "language": "json"
+                                }
+                              }
+                            },
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-99f9a1f5-585f-4ed9-b994-10445719f8be"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-1af53a27-1ca6-4264-a0f6-d2510b37e273"
+                    },
+                    {
+                      "name": "Delete event",
+                      "id": "31094c1d-ae14-4516-b2d0-0319e9ba80b2",
+                      "protocolProfileBehavior": {
+                        "disableBodyPruning": true
+                      },
+                      "request": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events",
+                            ":event_id"
+                          ],
+                          "variable": [
+                            {
+                              "id": "72a2e2de-e358-4328-bb18-6b4c86709872",
+                              "key": "site_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the site."
+                            },
+                            {
+                              "id": "d3db48a7-0b4e-4221-ad5e-abee8ca32ed8",
+                              "key": "event_id",
+                              "value": "<string>",
+                              "description": "(Required) Unique identifier for the event."
+                            }
+                          ]
+                        },
+                        "description": "Permanently deletes an event."
+                      },
+                      "response": [
+                        {
+                          "id": "ec1695b6-c237-427a-8ef9-0971f1315c41",
+                          "name": "Empty object on success",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "OK",
+                          "code": 200,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-ec1695b6-c237-427a-8ef9-0971f1315c41"
+                        },
+                        {
+                          "id": "5afb6105-1aab-4cc1-9074-a9a6ddff9bdf",
+                          "name": "Missing or invalid API key",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Unauthorized",
+                          "code": 401,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-5afb6105-1aab-4cc1-9074-a9a6ddff9bdf"
+                        },
+                        {
+                          "id": "687c373a-3011-4faa-8e6b-a0713f5dd68d",
+                          "name": "Resource not found",
+                          "originalRequest": {
+                            "method": "DELETE",
+                            "header": [
+                              {
+                                "key": "Accept",
+                                "value": "application/json"
+                              },
+                              {
+                                "description": "Added as a part of security scheme: bearer",
+                                "key": "Authorization",
+                                "value": "Bearer <token>"
+                              }
+                            ],
+                            "url": {
+                              "raw": "{{baseUrl}}/sites/:site_id/events/:event_id",
+                              "host": [
+                                "{{baseUrl}}"
+                              ],
+                              "path": [
+                                "sites",
+                                ":site_id",
+                                "events",
+                                ":event_id"
+                              ],
+                              "variable": [
+                                {
+                                  "key": "site_id"
+                                },
+                                {
+                                  "key": "event_id"
+                                }
+                              ]
+                            }
+                          },
+                          "status": "Not Found",
+                          "code": 404,
+                          "_postman_previewlanguage": "json",
+                          "header": [
+                            {
+                              "key": "Content-Type",
+                              "value": "application/json"
+                            }
+                          ],
+                          "cookie": [],
+                          "responseTime": null,
+                          "body": "{\n  \"error\": \"<string>\"\n}",
+                          "createdAt": "2026-07-28T01:36:51.000Z",
+                          "updatedAt": "2026-07-28T01:36:51.000Z",
+                          "uid": "35240-687c373a-3011-4faa-8e6b-a0713f5dd68d"
+                        }
+                      ],
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-31094c1d-ae14-4516-b2d0-0319e9ba80b2"
+                    }
+                  ],
+                  "id": "b2361b87-67ee-4f43-8a67-2e7cecf5ef41",
+                  "createdAt": "2026-07-28T01:36:51.000Z",
+                  "updatedAt": "2026-07-28T01:36:51.000Z",
+                  "uid": "35240-b2361b87-67ee-4f43-8a67-2e7cecf5ef41"
+                },
+                {
+                  "name": "List events",
+                  "id": "3166383b-1730-457c-8e87-50107fda2c6e",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id/events?limit=10&starting_after=<string>&ending_before=<string>",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id",
+                        "events"
+                      ],
+                      "query": [
+                        {
+                          "description": "Number of results per page (1-100, default 10).",
+                          "key": "limit",
+                          "value": "10"
+                        },
+                        {
+                          "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                          "key": "starting_after",
+                          "value": "<string>"
+                        },
+                        {
+                          "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                          "key": "ending_before",
+                          "value": "<string>"
+                        }
+                      ],
+                      "variable": [
+                        {
+                          "id": "53764f33-ff75-4cf0-8344-e32f8c1fa776",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier for the site."
+                        }
+                      ]
+                    },
+                    "description": "Returns a paginated list of events for a site."
+                  },
+                  "response": [
+                    {
+                      "id": "305d87e7-2d5e-498f-a8e3-c878e45b6739",
+                      "name": "Paginated list of events",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events?limit=10&starting_after=<string>&ending_before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page (1-100, default 10).",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                              "key": "starting_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                              "key": "ending_before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"object\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"name\": \"<string>\",\n      \"site_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"name\": \"<string>\",\n      \"site_id\": \"<string>\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"has_more\": \"<boolean>\"\n}",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-305d87e7-2d5e-498f-a8e3-c878e45b6739"
+                    },
+                    {
+                      "id": "61b313d1-f88c-4e22-a97c-98e07d9b6ea4",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events?limit=10&starting_after=<string>&ending_before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page (1-100, default 10).",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                              "key": "starting_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                              "key": "ending_before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-61b313d1-f88c-4e22-a97c-98e07d9b6ea4"
+                    },
+                    {
+                      "id": "cd7d60b3-a5f7-4814-906a-06c416b86a62",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "GET",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events?limit=10&starting_after=<string>&ending_before=<string>",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events"
+                          ],
+                          "query": [
+                            {
+                              "description": "Number of results per page (1-100, default 10).",
+                              "key": "limit",
+                              "value": "10"
+                            },
+                            {
+                              "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                              "key": "starting_after",
+                              "value": "<string>"
+                            },
+                            {
+                              "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                              "key": "ending_before",
+                              "value": "<string>"
+                            }
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-cd7d60b3-a5f7-4814-906a-06c416b86a62"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:36:51.000Z",
+                  "updatedAt": "2026-07-28T01:36:51.000Z",
+                  "uid": "35240-3166383b-1730-457c-8e87-50107fda2c6e"
+                },
+                {
+                  "name": "Create event",
+                  "id": "d93a28e7-b062-48de-87b2-d18e58c5aed2",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id/events",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id",
+                        "events"
+                      ],
+                      "variable": [
+                        {
+                          "id": "5ffd2ce2-8881-496d-aefb-7db8bd3482aa",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier for the site."
+                        }
+                      ]
+                    },
+                    "description": "Creates a new custom event for a site."
+                  },
+                  "response": [
+                    {
+                      "id": "67db6e56-cc57-4aad-a6be-8e6321c7b99d",
+                      "name": "Created event object",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"site_id\": \"<string>\",\n  \"created_at\": \"<dateTime>\"\n}",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-67db6e56-cc57-4aad-a6be-8e6321c7b99d"
+                    },
+                    {
+                      "id": "908c8d48-bfc4-4771-a9f8-c451fe7c2239",
+                      "name": "Bad request",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Bad Request",
+                      "code": 400,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-908c8d48-bfc4-4771-a9f8-c451fe7c2239"
+                    },
+                    {
+                      "id": "f898755f-b4fb-4c9e-aafc-690637f1120a",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-f898755f-b4fb-4c9e-aafc-690637f1120a"
+                    },
+                    {
+                      "id": "54fa0f8a-9726-4e93-96c3-72fa48acb2cb",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "POST",
+                        "header": [
+                          {
+                            "key": "Content-Type",
+                            "value": "application/json"
+                          },
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "body": {
+                          "mode": "raw",
+                          "raw": "{\n  \"name\": \"<string>\"\n}",
+                          "options": {
+                            "raw": {
+                              "headerFamily": "json",
+                              "language": "json"
+                            }
+                          }
+                        },
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/events",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "events"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:51.000Z",
+                      "updatedAt": "2026-07-28T01:36:51.000Z",
+                      "uid": "35240-54fa0f8a-9726-4e93-96c3-72fa48acb2cb"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:36:51.000Z",
+                  "updatedAt": "2026-07-28T01:36:51.000Z",
+                  "uid": "35240-d93a28e7-b062-48de-87b2-d18e58c5aed2"
+                }
+              ],
+              "id": "ecfe0204-a2f5-4a4e-88a2-e24c778ce5c2",
+              "createdAt": "2026-07-28T01:36:51.000Z",
+              "updatedAt": "2026-07-28T01:36:51.000Z",
+              "uid": "35240-ecfe0204-a2f5-4a4e-88a2-e24c778ce5c2"
+            }
+          ],
+          "id": "42cc04cc-1330-4e3f-be01-54a3cbeb2790",
+          "createdAt": "2026-07-28T01:36:51.000Z",
+          "updatedAt": "2026-07-28T01:36:51.000Z",
+          "uid": "35240-42cc04cc-1330-4e3f-be01-54a3cbeb2790"
+        }
+      ],
+      "id": "9c781981-e63f-41e5-919d-eb73913b244d",
+      "createdAt": "2026-07-28T01:36:51.000Z",
+      "updatedAt": "2026-07-28T01:36:51.000Z",
+      "uid": "35240-9c781981-e63f-41e5-919d-eb73913b244d"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.usefathom.com/v1"
+    }
+  ]
+}

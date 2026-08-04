@@ -1,0 +1,678 @@
+{
+  "info": {
+    "_postman_id": "37cb61f3-535e-47a6-9736-63db1804b1e8",
+    "name": "Fathom Analytics REST Account Reports API",
+    "description": "Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.\n\n\nContact Support:\n Name: Fathom Analytics Support\n Email: support@usefathom.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:36:52.000Z",
+    "updatedAt": "2026-07-28T01:36:52.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-37cb61f3-535e-47a6-9736-63db1804b1e8"
+  },
+  "item": [
+    {
+      "name": "aggregations",
+      "item": [
+        {
+          "name": "Get aggregations",
+          "id": "0a8cbfb9-147e-4add-bff7-e3f9dc4bef83",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/aggregations?entity=event&entity_id=<string>&site_id=<string>&entity_name=<string>&aggregates=<string>&date_grouping=month&field_grouping=<string>&sort_by=<string>&timezone=<string>&date_from=<integer>&date_to=<integer>&limit=<integer>&filters=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "aggregations"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The entity type to aggregate.",
+                  "key": "entity",
+                  "value": "event"
+                },
+                {
+                  "description": "Required when entity is \"pageview\". The site ID.",
+                  "key": "entity_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Required when entity is \"event\". The site ID.",
+                  "key": "site_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Required when entity is \"event\". The event name.",
+                  "key": "entity_name",
+                  "value": "<string>"
+                },
+                {
+                  "description": "(Required) Comma-separated list of aggregate metrics. For pageviews: visits, uniques, pageviews, avg_duration, bounce_rate. For events: conversions, unique_conversions, value.\n",
+                  "key": "aggregates",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Group results by time period.",
+                  "key": "date_grouping",
+                  "value": "month"
+                },
+                {
+                  "description": "Dimension field to group by. Allowed values: hostname, pathname, referrer_hostname, browser, country_code, city, device_type, operating_system, utm_source, utm_medium, utm_campaign, utm_content, utm_term, keyword.\n",
+                  "key": "field_grouping",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Sort order in field:asc or field:desc format.",
+                  "key": "sort_by",
+                  "value": "<string>"
+                },
+                {
+                  "description": "IANA TZ database timezone name (e.g. America/New_York).",
+                  "key": "timezone",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Start of date range as Unix timestamp.",
+                  "key": "date_from",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "End of date range as Unix timestamp.",
+                  "key": "date_to",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "Maximum number of results to return.",
+                  "key": "limit",
+                  "value": "<integer>"
+                },
+                {
+                  "description": "JSON-encoded array of filter objects with field, operator (is, is not, is like, matching, not matching), and value keys.\n",
+                  "key": "filters",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns aggregated analytics data. Rate limited to 10 requests per minute. Supports grouping by time period and dimension fields, sorting, filtering, and timezone-aware date ranges.\n"
+          },
+          "response": [
+            {
+              "id": "0cb1902b-377b-44b8-a792-333e6aca3b23",
+              "name": "Aggregated analytics results",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/aggregations?entity=event&entity_id=<string>&site_id=<string>&entity_name=<string>&aggregates=<string>&date_grouping=month&field_grouping=<string>&sort_by=<string>&timezone=<string>&date_from=<integer>&date_to=<integer>&limit=<integer>&filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "aggregations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The entity type to aggregate.",
+                      "key": "entity",
+                      "value": "event"
+                    },
+                    {
+                      "description": "Required when entity is \"pageview\". The site ID.",
+                      "key": "entity_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Required when entity is \"event\". The site ID.",
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Required when entity is \"event\". The event name.",
+                      "key": "entity_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated list of aggregate metrics. For pageviews: visits, uniques, pageviews, avg_duration, bounce_rate. For events: conversions, unique_conversions, value.\n",
+                      "key": "aggregates",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Group results by time period.",
+                      "key": "date_grouping",
+                      "value": "month"
+                    },
+                    {
+                      "description": "Dimension field to group by. Allowed values: hostname, pathname, referrer_hostname, browser, country_code, city, device_type, operating_system, utm_source, utm_medium, utm_campaign, utm_content, utm_term, keyword.\n",
+                      "key": "field_grouping",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order in field:asc or field:desc format.",
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "IANA TZ database timezone name (e.g. America/New_York).",
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start of date range as Unix timestamp.",
+                      "key": "date_from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "End of date range as Unix timestamp.",
+                      "key": "date_to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of results to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "JSON-encoded array of filter objects with field, operator (is, is not, is like, matching, not matching), and value keys.\n",
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"data\": [\n    {\n      \"Duis84\": \"<string>\",\n      \"Lorem_7ff\": \"<string>\"\n    },\n    {\n      \"quise59\": \"<string>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T01:36:53.000Z",
+              "updatedAt": "2026-07-28T01:36:53.000Z",
+              "uid": "35240-0cb1902b-377b-44b8-a792-333e6aca3b23"
+            },
+            {
+              "id": "3599893e-7d1d-4b4d-9c6a-461b5d4b7050",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/aggregations?entity=event&entity_id=<string>&site_id=<string>&entity_name=<string>&aggregates=<string>&date_grouping=month&field_grouping=<string>&sort_by=<string>&timezone=<string>&date_from=<integer>&date_to=<integer>&limit=<integer>&filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "aggregations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The entity type to aggregate.",
+                      "key": "entity",
+                      "value": "event"
+                    },
+                    {
+                      "description": "Required when entity is \"pageview\". The site ID.",
+                      "key": "entity_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Required when entity is \"event\". The site ID.",
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Required when entity is \"event\". The event name.",
+                      "key": "entity_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated list of aggregate metrics. For pageviews: visits, uniques, pageviews, avg_duration, bounce_rate. For events: conversions, unique_conversions, value.\n",
+                      "key": "aggregates",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Group results by time period.",
+                      "key": "date_grouping",
+                      "value": "month"
+                    },
+                    {
+                      "description": "Dimension field to group by. Allowed values: hostname, pathname, referrer_hostname, browser, country_code, city, device_type, operating_system, utm_source, utm_medium, utm_campaign, utm_content, utm_term, keyword.\n",
+                      "key": "field_grouping",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order in field:asc or field:desc format.",
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "IANA TZ database timezone name (e.g. America/New_York).",
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start of date range as Unix timestamp.",
+                      "key": "date_from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "End of date range as Unix timestamp.",
+                      "key": "date_to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of results to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "JSON-encoded array of filter objects with field, operator (is, is not, is like, matching, not matching), and value keys.\n",
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:53.000Z",
+              "updatedAt": "2026-07-28T01:36:53.000Z",
+              "uid": "35240-3599893e-7d1d-4b4d-9c6a-461b5d4b7050"
+            },
+            {
+              "id": "a2176688-89d4-4e8c-8d2f-5e0dd94e80bc",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/aggregations?entity=event&entity_id=<string>&site_id=<string>&entity_name=<string>&aggregates=<string>&date_grouping=month&field_grouping=<string>&sort_by=<string>&timezone=<string>&date_from=<integer>&date_to=<integer>&limit=<integer>&filters=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "aggregations"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The entity type to aggregate.",
+                      "key": "entity",
+                      "value": "event"
+                    },
+                    {
+                      "description": "Required when entity is \"pageview\". The site ID.",
+                      "key": "entity_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Required when entity is \"event\". The site ID.",
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Required when entity is \"event\". The event name.",
+                      "key": "entity_name",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "(Required) Comma-separated list of aggregate metrics. For pageviews: visits, uniques, pageviews, avg_duration, bounce_rate. For events: conversions, unique_conversions, value.\n",
+                      "key": "aggregates",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Group results by time period.",
+                      "key": "date_grouping",
+                      "value": "month"
+                    },
+                    {
+                      "description": "Dimension field to group by. Allowed values: hostname, pathname, referrer_hostname, browser, country_code, city, device_type, operating_system, utm_source, utm_medium, utm_campaign, utm_content, utm_term, keyword.\n",
+                      "key": "field_grouping",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Sort order in field:asc or field:desc format.",
+                      "key": "sort_by",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "IANA TZ database timezone name (e.g. America/New_York).",
+                      "key": "timezone",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Start of date range as Unix timestamp.",
+                      "key": "date_from",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "End of date range as Unix timestamp.",
+                      "key": "date_to",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "Maximum number of results to return.",
+                      "key": "limit",
+                      "value": "<integer>"
+                    },
+                    {
+                      "description": "JSON-encoded array of filter objects with field, operator (is, is not, is like, matching, not matching), and value keys.\n",
+                      "key": "filters",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:53.000Z",
+              "updatedAt": "2026-07-28T01:36:53.000Z",
+              "uid": "35240-a2176688-89d4-4e8c-8d2f-5e0dd94e80bc"
+            }
+          ],
+          "createdAt": "2026-07-28T01:36:53.000Z",
+          "updatedAt": "2026-07-28T01:36:53.000Z",
+          "uid": "35240-0a8cbfb9-147e-4add-bff7-e3f9dc4bef83"
+        }
+      ],
+      "id": "d8988fe3-6a47-4f32-bc8e-1a1e21d1c73f",
+      "createdAt": "2026-07-28T01:36:53.000Z",
+      "updatedAt": "2026-07-28T01:36:53.000Z",
+      "uid": "35240-d8988fe3-6a47-4f32-bc8e-1a1e21d1c73f"
+    },
+    {
+      "name": "current_visitors",
+      "item": [
+        {
+          "name": "Get current visitors",
+          "id": "4f618056-a009-4542-92ec-9819953e6745",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/current_visitors?site_id=<string>&detailed=<boolean>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "current_visitors"
+              ],
+              "query": [
+                {
+                  "description": "(Required) The site ID to query.",
+                  "key": "site_id",
+                  "value": "<string>"
+                },
+                {
+                  "description": "If true, returns breakdown by page and referrer.",
+                  "key": "detailed",
+                  "value": "<boolean>"
+                }
+              ]
+            },
+            "description": "Returns the number of visitors currently on a site. Rate limited to 10 requests per minute.\n"
+          },
+          "response": [
+            {
+              "id": "e07f6cd8-b48d-4be6-b54b-ef15308144b2",
+              "name": "Current visitor count and optional detail",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/current_visitors?site_id=<string>&detailed=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "current_visitors"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The site ID to query.",
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, returns breakdown by page and referrer.",
+                      "key": "detailed",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"total\": \"<integer>\",\n  \"content\": [\n    {\n      \"pathname\": \"<string>\",\n      \"total\": \"<integer>\"\n    },\n    {\n      \"pathname\": \"<string>\",\n      \"total\": \"<integer>\"\n    }\n  ],\n  \"referrers\": [\n    {\n      \"referrer\": \"<string>\",\n      \"total\": \"<integer>\"\n    },\n    {\n      \"referrer\": \"<string>\",\n      \"total\": \"<integer>\"\n    }\n  ]\n}",
+              "createdAt": "2026-07-28T01:36:53.000Z",
+              "updatedAt": "2026-07-28T01:36:53.000Z",
+              "uid": "35240-e07f6cd8-b48d-4be6-b54b-ef15308144b2"
+            },
+            {
+              "id": "2005f905-36a7-46f5-8d08-07475eeffcf1",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/current_visitors?site_id=<string>&detailed=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "current_visitors"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The site ID to query.",
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, returns breakdown by page and referrer.",
+                      "key": "detailed",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:53.000Z",
+              "updatedAt": "2026-07-28T01:36:53.000Z",
+              "uid": "35240-2005f905-36a7-46f5-8d08-07475eeffcf1"
+            },
+            {
+              "id": "cf753db0-6dad-4b7f-90ad-f5e1b555918e",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/current_visitors?site_id=<string>&detailed=<boolean>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "current_visitors"
+                  ],
+                  "query": [
+                    {
+                      "description": "(Required) The site ID to query.",
+                      "key": "site_id",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "If true, returns breakdown by page and referrer.",
+                      "key": "detailed",
+                      "value": "<boolean>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:53.000Z",
+              "updatedAt": "2026-07-28T01:36:53.000Z",
+              "uid": "35240-cf753db0-6dad-4b7f-90ad-f5e1b555918e"
+            }
+          ],
+          "createdAt": "2026-07-28T01:36:53.000Z",
+          "updatedAt": "2026-07-28T01:36:53.000Z",
+          "uid": "35240-4f618056-a009-4542-92ec-9819953e6745"
+        }
+      ],
+      "id": "f3fbbd5f-53f9-4ed1-bdba-92f5e23a3a4f",
+      "createdAt": "2026-07-28T01:36:53.000Z",
+      "updatedAt": "2026-07-28T01:36:53.000Z",
+      "uid": "35240-f3fbbd5f-53f9-4ed1-bdba-92f5e23a3a4f"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.usefathom.com/v1"
+    }
+  ]
+}

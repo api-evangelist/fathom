@@ -1,0 +1,1294 @@
+{
+  "info": {
+    "_postman_id": "8015be86-d2ee-4bee-9c63-0fac3208d1c0",
+    "name": "Fathom Analytics REST Account Sites API",
+    "description": "Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.\n\n\nContact Support:\n Name: Fathom Analytics Support\n Email: support@usefathom.com",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-07-28T01:36:53.000Z",
+    "updatedAt": "2026-07-28T01:36:53.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-8015be86-d2ee-4bee-9c63-0fac3208d1c0"
+  },
+  "item": [
+    {
+      "name": "sites",
+      "item": [
+        {
+          "name": "{site_id}",
+          "item": [
+            {
+              "name": "data",
+              "item": [
+                {
+                  "name": "Wipe site data",
+                  "id": "b3944703-3182-4a87-8c79-92ce6725280a",
+                  "protocolProfileBehavior": {
+                    "disableBodyPruning": true
+                  },
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id/data",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id",
+                        "data"
+                      ],
+                      "variable": [
+                        {
+                          "id": "f6a2b63c-a3b0-40be-8970-5e42fff8e7e6",
+                          "key": "site_id",
+                          "value": "<string>",
+                          "description": "(Required) Unique identifier for the site."
+                        }
+                      ]
+                    },
+                    "description": "Permanently wipes all analytics data for a site without deleting the site itself."
+                  },
+                  "response": [
+                    {
+                      "id": "aa46eace-1aab-4c77-8c78-808554496676",
+                      "name": "Empty object on success",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/data",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "data"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{}",
+                      "createdAt": "2026-07-28T01:36:54.000Z",
+                      "updatedAt": "2026-07-28T01:36:54.000Z",
+                      "uid": "35240-aa46eace-1aab-4c77-8c78-808554496676"
+                    },
+                    {
+                      "id": "c5d00947-72a8-456a-87f3-29008a59e949",
+                      "name": "Missing or invalid API key",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/data",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "data"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Unauthorized",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:54.000Z",
+                      "updatedAt": "2026-07-28T01:36:54.000Z",
+                      "uid": "35240-c5d00947-72a8-456a-87f3-29008a59e949"
+                    },
+                    {
+                      "id": "42ab5171-3f1c-4836-bb22-8ce4eedaa7b5",
+                      "name": "Resource not found",
+                      "originalRequest": {
+                        "method": "DELETE",
+                        "header": [
+                          {
+                            "key": "Accept",
+                            "value": "application/json"
+                          },
+                          {
+                            "description": "Added as a part of security scheme: bearer",
+                            "key": "Authorization",
+                            "value": "Bearer <token>"
+                          }
+                        ],
+                        "url": {
+                          "raw": "{{baseUrl}}/sites/:site_id/data",
+                          "host": [
+                            "{{baseUrl}}"
+                          ],
+                          "path": [
+                            "sites",
+                            ":site_id",
+                            "data"
+                          ],
+                          "variable": [
+                            {
+                              "key": "site_id"
+                            }
+                          ]
+                        }
+                      },
+                      "status": "Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "header": [
+                        {
+                          "key": "Content-Type",
+                          "value": "application/json"
+                        }
+                      ],
+                      "cookie": [],
+                      "responseTime": null,
+                      "body": "{\n  \"error\": \"<string>\"\n}",
+                      "createdAt": "2026-07-28T01:36:54.000Z",
+                      "updatedAt": "2026-07-28T01:36:54.000Z",
+                      "uid": "35240-42ab5171-3f1c-4836-bb22-8ce4eedaa7b5"
+                    }
+                  ],
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-b3944703-3182-4a87-8c79-92ce6725280a"
+                }
+              ],
+              "id": "71354113-05da-4d9c-9314-87fd4c0af385",
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-71354113-05da-4d9c-9314-87fd4c0af385"
+            },
+            {
+              "name": "Get site",
+              "id": "89289165-3bf4-496b-8d80-2491abbaf69a",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sites/:site_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites",
+                    ":site_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "05755c23-344c-4636-b7af-1204f6c32180",
+                      "key": "site_id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier for the site."
+                    }
+                  ]
+                },
+                "description": "Returns a single site by ID."
+              },
+              "response": [
+                {
+                  "id": "2e12a69d-d31a-464b-b798-bc4237c4a57b",
+                  "name": "Site object",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sharing\": \"none\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-2e12a69d-d31a-464b-b798-bc4237c4a57b"
+                },
+                {
+                  "id": "b5e6c1c8-b33e-4bbf-9823-8862b0aa9dd5",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-b5e6c1c8-b33e-4bbf-9823-8862b0aa9dd5"
+                },
+                {
+                  "id": "c0f89cc0-bc8d-4642-b63c-67f6ececda9f",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-c0f89cc0-bc8d-4642-b63c-67f6ececda9f"
+                }
+              ],
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-89289165-3bf4-496b-8d80-2491abbaf69a"
+            },
+            {
+              "name": "Update site",
+              "id": "5350bce0-639e-462c-bd17-109010810fd2",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sites/:site_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites",
+                    ":site_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "77730c7f-b6ff-44af-a908-3c78d3b61313",
+                      "key": "site_id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier for the site."
+                    }
+                  ]
+                },
+                "description": "Updates a site's name or sharing settings."
+              },
+              "response": [
+                {
+                  "id": "01e39149-e2a8-4b5f-8472-fccc5d893ca0",
+                  "name": "Updated site object",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sharing\": \"none\",\n  \"created_at\": \"<dateTime>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-01e39149-e2a8-4b5f-8472-fccc5d893ca0"
+                },
+                {
+                  "id": "8e368846-bc6b-4241-8f26-a75bf5bca496",
+                  "name": "Bad request",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Bad Request",
+                  "code": 400,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-8e368846-bc6b-4241-8f26-a75bf5bca496"
+                },
+                {
+                  "id": "120052ea-e756-4a7d-a192-cb1df38ecc66",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-120052ea-e756-4a7d-a192-cb1df38ecc66"
+                },
+                {
+                  "id": "684f7af3-6b12-4c3d-8ee9-20c64abc8a07",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [
+                      {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                      },
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                      "options": {
+                        "raw": {
+                          "headerFamily": "json",
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-684f7af3-6b12-4c3d-8ee9-20c64abc8a07"
+                }
+              ],
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-5350bce0-639e-462c-bd17-109010810fd2"
+            },
+            {
+              "name": "Delete site",
+              "id": "9b6984e0-0331-4a40-b198-1e74e8fa7ce9",
+              "protocolProfileBehavior": {
+                "disableBodyPruning": true
+              },
+              "request": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sites/:site_id",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites",
+                    ":site_id"
+                  ],
+                  "variable": [
+                    {
+                      "id": "28c0b0e4-4c49-4414-b40f-bc1327c05a18",
+                      "key": "site_id",
+                      "value": "<string>",
+                      "description": "(Required) Unique identifier for the site."
+                    }
+                  ]
+                },
+                "description": "Permanently deletes a site and all its data."
+              },
+              "response": [
+                {
+                  "id": "36f75e51-eb50-43db-a65a-73a0c24bf21f",
+                  "name": "Empty object on success",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-36f75e51-eb50-43db-a65a-73a0c24bf21f"
+                },
+                {
+                  "id": "09551000-7664-419a-9972-2173afa43eb2",
+                  "name": "Missing or invalid API key",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Unauthorized",
+                  "code": 401,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-09551000-7664-419a-9972-2173afa43eb2"
+                },
+                {
+                  "id": "fba41624-da82-4e36-aa58-a7b2bb4435ad",
+                  "name": "Resource not found",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [
+                      {
+                        "key": "Accept",
+                        "value": "application/json"
+                      },
+                      {
+                        "description": "Added as a part of security scheme: bearer",
+                        "key": "Authorization",
+                        "value": "Bearer <token>"
+                      }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/sites/:site_id",
+                      "host": [
+                        "{{baseUrl}}"
+                      ],
+                      "path": [
+                        "sites",
+                        ":site_id"
+                      ],
+                      "variable": [
+                        {
+                          "key": "site_id"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "Not Found",
+                  "code": 404,
+                  "_postman_previewlanguage": "json",
+                  "header": [
+                    {
+                      "key": "Content-Type",
+                      "value": "application/json"
+                    }
+                  ],
+                  "cookie": [],
+                  "responseTime": null,
+                  "body": "{\n  \"error\": \"<string>\"\n}",
+                  "createdAt": "2026-07-28T01:36:54.000Z",
+                  "updatedAt": "2026-07-28T01:36:54.000Z",
+                  "uid": "35240-fba41624-da82-4e36-aa58-a7b2bb4435ad"
+                }
+              ],
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-9b6984e0-0331-4a40-b198-1e74e8fa7ce9"
+            }
+          ],
+          "id": "31e053ea-98f9-4d22-af02-628403b81448",
+          "createdAt": "2026-07-28T01:36:54.000Z",
+          "updatedAt": "2026-07-28T01:36:54.000Z",
+          "uid": "35240-31e053ea-98f9-4d22-af02-628403b81448"
+        },
+        {
+          "name": "List sites",
+          "id": "af0fcf9a-8b5f-4457-b285-bda69341af94",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sites?limit=10&starting_after=<string>&ending_before=<string>",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sites"
+              ],
+              "query": [
+                {
+                  "description": "Number of results per page (1-100, default 10).",
+                  "key": "limit",
+                  "value": "10"
+                },
+                {
+                  "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                  "key": "starting_after",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                  "key": "ending_before",
+                  "value": "<string>"
+                }
+              ]
+            },
+            "description": "Returns a paginated list of sites belonging to the account."
+          },
+          "response": [
+            {
+              "id": "9a68ad48-4089-45f6-944a-d4e7f6d20202",
+              "name": "Paginated list of sites",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sites?limit=10&starting_after=<string>&ending_before=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results per page (1-100, default 10).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                      "key": "starting_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                      "key": "ending_before",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"object\": \"<string>\",\n  \"data\": [\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sharing\": \"none\",\n      \"created_at\": \"<dateTime>\"\n    },\n    {\n      \"id\": \"<string>\",\n      \"object\": \"<string>\",\n      \"name\": \"<string>\",\n      \"sharing\": \"none\",\n      \"created_at\": \"<dateTime>\"\n    }\n  ],\n  \"has_more\": \"<boolean>\"\n}",
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-9a68ad48-4089-45f6-944a-d4e7f6d20202"
+            },
+            {
+              "id": "9fd2c52a-5ed2-4fa6-9f22-ccc4c040b92b",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sites?limit=10&starting_after=<string>&ending_before=<string>",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ],
+                  "query": [
+                    {
+                      "description": "Number of results per page (1-100, default 10).",
+                      "key": "limit",
+                      "value": "10"
+                    },
+                    {
+                      "description": "Cursor for forward pagination \u2014 return results after this ID.",
+                      "key": "starting_after",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Cursor for backward pagination \u2014 return results before this ID.",
+                      "key": "ending_before",
+                      "value": "<string>"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-9fd2c52a-5ed2-4fa6-9f22-ccc4c040b92b"
+            }
+          ],
+          "createdAt": "2026-07-28T01:36:54.000Z",
+          "updatedAt": "2026-07-28T01:36:54.000Z",
+          "uid": "35240-af0fcf9a-8b5f-4457-b285-bda69341af94"
+        },
+        {
+          "name": "Create site",
+          "id": "58815f39-fc07-4807-8501-da5a05e6e336",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+              "options": {
+                "raw": {
+                  "headerFamily": "json",
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/sites",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sites"
+              ]
+            },
+            "description": "Creates a new site."
+          },
+          "response": [
+            {
+              "id": "d17b7bba-1ba5-4249-a6c3-8799a1f389f0",
+              "name": "Created site object",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sites",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"id\": \"<string>\",\n  \"object\": \"<string>\",\n  \"name\": \"<string>\",\n  \"sharing\": \"none\",\n  \"created_at\": \"<dateTime>\"\n}",
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-d17b7bba-1ba5-4249-a6c3-8799a1f389f0"
+            },
+            {
+              "id": "34b2a530-8aa1-4772-83bf-e0186dfbdc12",
+              "name": "Bad request",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sites",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ]
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-34b2a530-8aa1-4772-83bf-e0186dfbdc12"
+            },
+            {
+              "id": "93d7388e-e95f-4957-b4d1-b46033178092",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"<string>\",\n  \"sharing\": \"public\",\n  \"share_password\": \"<string>\"\n}",
+                  "options": {
+                    "raw": {
+                      "headerFamily": "json",
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/sites",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sites"
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "cookie": [],
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\"\n}",
+              "createdAt": "2026-07-28T01:36:54.000Z",
+              "updatedAt": "2026-07-28T01:36:54.000Z",
+              "uid": "35240-93d7388e-e95f-4957-b4d1-b46033178092"
+            }
+          ],
+          "createdAt": "2026-07-28T01:36:54.000Z",
+          "updatedAt": "2026-07-28T01:36:54.000Z",
+          "uid": "35240-58815f39-fc07-4807-8501-da5a05e6e336"
+        }
+      ],
+      "id": "f3f05113-8a9e-48d6-a2d3-16891b58dd98",
+      "createdAt": "2026-07-28T01:36:54.000Z",
+      "updatedAt": "2026-07-28T01:36:54.000Z",
+      "uid": "35240-f3f05113-8a9e-48d6-a2d3-16891b58dd98"
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{bearerToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "https://api.usefathom.com/v1"
+    }
+  ]
+}

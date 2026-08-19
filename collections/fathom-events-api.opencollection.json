@@ -1,0 +1,188 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fathom Analytics REST Account Events API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Events",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List events",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/events",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (1-100, default 10)."
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for forward pagination — return results after this ID."
+              },
+              {
+                "name": "ending_before",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for backward pagination — return results before this ID."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of events for a site."
+        },
+        {
+          "info": {
+            "name": "Create event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/events",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new custom event for a site."
+        },
+        {
+          "info": {
+            "name": "Get event",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/events/:event_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the event."
+              }
+            ]
+          },
+          "docs": "Returns a single event by ID."
+        },
+        {
+          "info": {
+            "name": "Update event",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/events/:event_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the event."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an event's name."
+        },
+        {
+          "info": {
+            "name": "Delete event",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/events/:event_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the event."
+              }
+            ]
+          },
+          "docs": "Permanently deletes an event."
+        },
+        {
+          "info": {
+            "name": "Wipe event data",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/events/:event_id/data",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "event_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the event."
+              }
+            ]
+          },
+          "docs": "Permanently wipes all data for an event without deleting the event itself."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

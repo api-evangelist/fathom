@@ -1,0 +1,150 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fathom Analytics REST Account Sites API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Sites",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List sites",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/sites",
+            "params": [
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (1-100, default 10)."
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for forward pagination — return results after this ID."
+              },
+              {
+                "name": "ending_before",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for backward pagination — return results before this ID."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of sites belonging to the account."
+        },
+        {
+          "info": {
+            "name": "Create site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.usefathom.com/v1/sites",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new site."
+        },
+        {
+          "info": {
+            "name": "Get site",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              }
+            ]
+          },
+          "docs": "Returns a single site by ID."
+        },
+        {
+          "info": {
+            "name": "Update site",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.usefathom.com/v1/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a site's name or sharing settings."
+        },
+        {
+          "info": {
+            "name": "Delete site",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.usefathom.com/v1/sites/:site_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a site and all its data."
+        },
+        {
+          "info": {
+            "name": "Wipe site data",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/data",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              }
+            ]
+          },
+          "docs": "Permanently wipes all analytics data for a site without deleting the site itself."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

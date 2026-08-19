@@ -1,0 +1,140 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fathom Analytics REST Account Reports API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reports",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get aggregations",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/aggregations",
+            "params": [
+              {
+                "name": "entity",
+                "value": "",
+                "type": "query",
+                "description": "The entity type to aggregate."
+              },
+              {
+                "name": "entity_id",
+                "value": "",
+                "type": "query",
+                "description": "Required when entity is \"pageview\". The site ID."
+              },
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "Required when entity is \"event\". The site ID."
+              },
+              {
+                "name": "entity_name",
+                "value": "",
+                "type": "query",
+                "description": "Required when entity is \"event\". The event name."
+              },
+              {
+                "name": "aggregates",
+                "value": "",
+                "type": "query",
+                "description": "Comma-separated list of aggregate metrics. For pageviews: visits, uniques, pageviews, avg_duration, bounce_rate. For events: conversions, unique_conversions, value.\n"
+              },
+              {
+                "name": "date_grouping",
+                "value": "",
+                "type": "query",
+                "description": "Group results by time period."
+              },
+              {
+                "name": "field_grouping",
+                "value": "",
+                "type": "query",
+                "description": "Dimension field to group by. Allowed values: hostname, pathname, referrer_hostname, browser, country_code, city, device_type, operating_system, utm_source, utm_medium, utm_campaign, utm_content, utm_term, keyword.\n"
+              },
+              {
+                "name": "sort_by",
+                "value": "",
+                "type": "query",
+                "description": "Sort order in field:asc or field:desc format."
+              },
+              {
+                "name": "timezone",
+                "value": "",
+                "type": "query",
+                "description": "IANA TZ database timezone name (e.g. America/New_York)."
+              },
+              {
+                "name": "date_from",
+                "value": "",
+                "type": "query",
+                "description": "Start of date range as Unix timestamp."
+              },
+              {
+                "name": "date_to",
+                "value": "",
+                "type": "query",
+                "description": "End of date range as Unix timestamp."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Maximum number of results to return."
+              },
+              {
+                "name": "filters",
+                "value": "",
+                "type": "query",
+                "description": "JSON-encoded array of filter objects with field, operator (is, is not, is like, matching, not matching), and value keys.\n"
+              }
+            ]
+          },
+          "docs": "Returns aggregated analytics data. Rate limited to 10 requests per minute. Supports grouping by time period and dimension fields, sorting, filtering, and timezone-aware date ranges.\n"
+        },
+        {
+          "info": {
+            "name": "Get current visitors",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/current_visitors",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "query",
+                "description": "The site ID to query."
+              },
+              {
+                "name": "detailed",
+                "value": "",
+                "type": "query",
+                "description": "If true, returns breakdown by page and referrer."
+              }
+            ]
+          },
+          "docs": "Returns the number of visitors currently on a site. Rate limited to 10 requests per minute.\n"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

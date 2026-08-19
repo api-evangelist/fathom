@@ -1,0 +1,163 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Fathom Analytics REST Account Milestones API",
+    "version": "1"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{bearerToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Milestones",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List milestones",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/milestones",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "limit",
+                "value": "",
+                "type": "query",
+                "description": "Number of results per page (1-100, default 10)."
+              },
+              {
+                "name": "starting_after",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for forward pagination — return results after this ID."
+              },
+              {
+                "name": "ending_before",
+                "value": "",
+                "type": "query",
+                "description": "Cursor for backward pagination — return results before this ID."
+              }
+            ]
+          },
+          "docs": "Returns a paginated list of milestones for a site."
+        },
+        {
+          "info": {
+            "name": "Create milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/milestones",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new milestone for a site."
+        },
+        {
+          "info": {
+            "name": "Get milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/milestones/:milestone_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "milestone_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the milestone."
+              }
+            ]
+          },
+          "docs": "Returns a single milestone by ID."
+        },
+        {
+          "info": {
+            "name": "Update milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/milestones/:milestone_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "milestone_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the milestone."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates a milestone's name or date."
+        },
+        {
+          "info": {
+            "name": "Delete milestone",
+            "type": "http"
+          },
+          "http": {
+            "method": "DELETE",
+            "url": "https://api.usefathom.com/v1/sites/:site_id/milestones/:milestone_id",
+            "params": [
+              {
+                "name": "site_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the site."
+              },
+              {
+                "name": "milestone_id",
+                "value": "",
+                "type": "path",
+                "description": "Unique identifier for the milestone."
+              }
+            ]
+          },
+          "docs": "Permanently deletes a milestone."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

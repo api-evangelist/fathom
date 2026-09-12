@@ -2,13 +2,11 @@
   "repo": "fathom",
   "feeds": [
     {
-      "source": "https://usefathom.com/blog/feed.xml",
+      "source": "https://usefathom.com/blog",
       "feed_url": "https://usefathom.com/blog/feed.xml",
       "title": "",
       "saved": 0,
-      "method": "feed",
-      "nature": "vendor-blog",
-      "nature_basis": "path_blog"
+      "method": "discovered"
     },
     {
       "source": "https://usefathom.com/api",
@@ -25,16 +23,14 @@
       "method": "none"
     },
     {
-      "source": "https://usefathom.com/blog",
+      "source": "https://usefathom.com/blog/feed.xml",
       "feed_url": "https://usefathom.com/blog/feed.xml",
       "title": "",
       "saved": 0,
-      "method": "discovered",
-      "nature": "vendor-blog",
-      "nature_basis": "path_blog"
+      "method": "feed"
     }
   ],
-  "fetched": "2026-08-30T22:33:40Z",
+  "fetched": "2026-09-06T19:17:18Z",
   "post_count": 23,
   "feed_nature": "vendor-blog",
   "feed_nature_basis": "path_blog",

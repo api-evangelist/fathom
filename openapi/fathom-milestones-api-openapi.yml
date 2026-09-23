@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Fathom Analytics REST Account Milestones API
-  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
-
-    '
+  title: Fathom Analytics REST Milestones API
+  description: Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
   version: '1'
   contact:
     name: Fathom Analytics Support
@@ -141,14 +139,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    MilestoneUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        milestone_date:
-          type: string
-          format: date
     MilestoneCreate:
       type: object
       required:
@@ -174,6 +164,14 @@ components:
             $ref: '#/components/schemas/Milestone'
         has_more:
           type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
     Milestone:
       type: object
       properties:
@@ -196,14 +194,14 @@ components:
         updated_at:
           type: string
           format: date-time
-    Error:
+    MilestoneUpdate:
       type: object
       properties:
-        error:
+        name:
           type: string
-          description: Human-readable error message.
-      required:
-      - error
+        milestone_date:
+          type: string
+          format: date
   parameters:
     Limit:
       name: limit
@@ -222,13 +220,6 @@ components:
       description: Cursor for forward pagination — return results after this ID.
       schema:
         type: string
-    MilestoneId:
-      name: milestone_id
-      in: path
-      required: true
-      description: Unique identifier for the milestone.
-      schema:
-        type: string
     EndingBefore:
       name: ending_before
       in: query
@@ -243,7 +234,20 @@ components:
       description: Unique identifier for the site.
       schema:
         type: string
+    MilestoneId:
+      name: milestone_id
+      in: path
+      required: true
+      description: Unique identifier for the milestone.
+      schema:
+        type: string
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Bad request
       content:
@@ -252,12 +256,6 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
       content:
         application/json:
           schema:

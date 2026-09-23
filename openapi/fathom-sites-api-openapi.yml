@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Fathom Analytics REST Account Sites API
-  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
-
-    '
+  title: Fathom Analytics REST Sites API
+  description: Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
   version: '1'
   contact:
     name: Fathom Analytics Support
@@ -151,20 +149,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    SiteUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: New display name for the site.
-        sharing:
-          type: string
-          enum:
-          - none
-          - private
-          - public
-        share_password:
-          type: string
     SiteCreate:
       type: object
       required:
@@ -183,26 +167,6 @@ components:
         share_password:
           type: string
           description: Password for private sharing (required when sharing is private).
-    SiteList:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Site'
-        has_more:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
     Site:
       type: object
       properties:
@@ -226,25 +190,40 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the site was created.
-  responses:
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+    SiteUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the site.
+        sharing:
+          type: string
+          enum:
+          - none
+          - private
+          - public
+        share_password:
+          type: string
+    SiteList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Site'
+        has_more:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
   parameters:
     Limit:
       name: limit
@@ -277,6 +256,25 @@ components:
       description: Unique identifier for the site.
       schema:
         type: string
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

@@ -1,11 +1,7 @@
 {
   "provider": "fathom",
   "sources": [
-    "fathom-account-api-openapi.yml",
-    "fathom-events-api-openapi.yml",
-    "fathom-milestones-api-openapi.yml",
-    "fathom-reports-api-openapi.yml",
-    "fathom-sites-api-openapi.yml"
+    "_original/fathom-analytics-api-openapi.yml"
   ],
   "outputs": [
     "fathom-account-api-openapi.yml",
@@ -17,6 +13,16 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "fathom-analytics-api-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "fathom-account-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fathom-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fathom-milestones-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fathom-reports-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "fathom-sites-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

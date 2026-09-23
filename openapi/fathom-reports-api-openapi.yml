@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Fathom Analytics REST Account Reports API
-  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
-
-    '
+  title: Fathom Analytics REST Reports API
+  description: Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
   version: '1'
   contact:
     name: Fathom Analytics Support
@@ -24,9 +22,7 @@ paths:
     get:
       operationId: getAggregations
       summary: Get aggregations
-      description: 'Returns aggregated analytics data. Rate limited to 10 requests per minute. Supports grouping by time period and dimension fields, sorting, filtering, and timezone-aware date ranges.
-
-        '
+      description: Returns aggregated analytics data. Rate limited to 10 requests per minute. Supports grouping by time period and dimension fields, sorting, filtering, and timezone-aware date ranges.
       tags:
       - Reports
       parameters:
@@ -137,9 +133,7 @@ paths:
     get:
       operationId: getCurrentVisitors
       summary: Get current visitors
-      description: 'Returns the number of visitors currently on a site. Rate limited to 10 requests per minute.
-
-        '
+      description: Returns the number of visitors currently on a site. Rate limited to 10 requests per minute.
       tags:
       - Reports
       parameters:
@@ -167,6 +161,19 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
     CurrentVisitors:
       type: object
@@ -194,6 +201,14 @@ components:
                 type: string
               total:
                 type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
     AggregationResult:
       type: object
       properties:
@@ -204,27 +219,6 @@ components:
             additionalProperties:
               type: string
               description: Dynamic keys matching the requested aggregates and groupings.
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

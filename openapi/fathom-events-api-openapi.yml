@@ -1,9 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
-  title: Fathom Analytics REST Account Events API
-  description: 'Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
-
-    '
+  title: Fathom Analytics REST Events API
+  description: Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
   version: '1'
   contact:
     name: Fathom Analytics Support
@@ -161,59 +159,6 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
-  schemas:
-    EventUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: New display name for the event.
-    EventCreate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the event.
-    Event:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique event identifier.
-        object:
-          type: string
-          example: event
-        name:
-          type: string
-          description: Event display name.
-        site_id:
-          type: string
-          description: ID of the site this event belongs to.
-        created_at:
-          type: string
-          format: date-time
-    EventList:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
-        has_more:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
   parameters:
     EventId:
       name: event_id
@@ -253,7 +198,66 @@ components:
       description: Unique identifier for the site.
       schema:
         type: string
+  schemas:
+    EventUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the event.
+    EventList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Event'
+        has_more:
+          type: boolean
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+    Event:
+      type: object
+      properties:
+        id:
+          type: string
+          description: Unique event identifier.
+        object:
+          type: string
+          example: event
+        name:
+          type: string
+          description: Event display name.
+        site_id:
+          type: string
+          description: ID of the site this event belongs to.
+        created_at:
+          type: string
+          format: date-time
+    EventCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the event.
   responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
     BadRequest:
       description: Bad request
       content:
@@ -262,12 +266,6 @@ components:
             $ref: '#/components/schemas/Error'
     Unauthorized:
       description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
       content:
         application/json:
           schema:

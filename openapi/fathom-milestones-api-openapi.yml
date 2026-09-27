@@ -152,26 +152,6 @@ components:
           type: string
           format: date
           description: Date of the milestone (YYYY-MM-DD).
-    MilestoneList:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Milestone'
-        has_more:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
     Milestone:
       type: object
       properties:
@@ -194,6 +174,14 @@ components:
         updated_at:
           type: string
           format: date-time
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
     MilestoneUpdate:
       type: object
       properties:
@@ -202,7 +190,40 @@ components:
         milestone_date:
           type: string
           format: date
+    MilestoneList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Milestone'
+        has_more:
+          type: boolean
   parameters:
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
+    MilestoneId:
+      name: milestone_id
+      in: path
+      required: true
+      description: Unique identifier for the milestone.
+      schema:
+        type: string
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -213,20 +234,6 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for forward pagination — return results after this ID.
-      schema:
-        type: string
-    EndingBefore:
-      name: ending_before
-      in: query
-      required: false
-      description: Cursor for backward pagination — return results before this ID.
-      schema:
-        type: string
     SiteId:
       name: site_id
       in: path
@@ -234,16 +241,9 @@ components:
       description: Unique identifier for the site.
       schema:
         type: string
-    MilestoneId:
-      name: milestone_id
-      in: path
-      required: true
-      description: Unique identifier for the milestone.
-      schema:
-        type: string
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid API key
       content:
         application/json:
           schema:
@@ -254,8 +254,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

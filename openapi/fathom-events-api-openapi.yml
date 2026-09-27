@@ -160,11 +160,18 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   parameters:
-    EventId:
-      name: event_id
-      in: path
-      required: true
-      description: Unique identifier for the event.
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
       schema:
         type: string
     Limit:
@@ -177,18 +184,11 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for forward pagination — return results after this ID.
-      schema:
-        type: string
-    EndingBefore:
-      name: ending_before
-      in: query
-      required: false
-      description: Cursor for backward pagination — return results before this ID.
+    EventId:
+      name: event_id
+      in: path
+      required: true
+      description: Unique identifier for the event.
       schema:
         type: string
     SiteId:
@@ -198,13 +198,34 @@ components:
       description: Unique identifier for the site.
       schema:
         type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
-    EventUpdate:
+    Error:
       type: object
       properties:
-        name:
+        error:
           type: string
-          description: New display name for the event.
+          description: Human-readable error message.
+      required:
+      - error
     EventList:
       type: object
       properties:
@@ -217,14 +238,20 @@ components:
             $ref: '#/components/schemas/Event'
         has_more:
           type: boolean
-    Error:
+    EventUpdate:
       type: object
       properties:
-        error:
+        name:
           type: string
-          description: Human-readable error message.
+          description: New display name for the event.
+    EventCreate:
+      type: object
       required:
-      - error
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the event.
     Event:
       type: object
       properties:
@@ -243,33 +270,6 @@ components:
         created_at:
           type: string
           format: date-time
-    EventCreate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the event.
-  responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

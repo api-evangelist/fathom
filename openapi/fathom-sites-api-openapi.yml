@@ -149,6 +149,40 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    SiteList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Site'
+        has_more:
+          type: boolean
+    SiteUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the site.
+        sharing:
+          type: string
+          enum:
+          - none
+          - private
+          - public
+        share_password:
+          type: string
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
     SiteCreate:
       type: object
       required:
@@ -190,41 +224,21 @@ components:
           type: string
           format: date-time
           description: ISO 8601 timestamp when the site was created.
-    SiteUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: New display name for the site.
-        sharing:
-          type: string
-          enum:
-          - none
-          - private
-          - public
-        share_password:
-          type: string
-    SiteList:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Site'
-        has_more:
-          type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
   parameters:
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
+      schema:
+        type: string
     Limit:
       name: limit
       in: query
@@ -235,20 +249,6 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for forward pagination — return results after this ID.
-      schema:
-        type: string
-    EndingBefore:
-      name: ending_before
-      in: query
-      required: false
-      description: Cursor for backward pagination — return results before this ID.
-      schema:
-        type: string
     SiteId:
       name: site_id
       in: path
@@ -257,8 +257,8 @@ components:
       schema:
         type: string
   responses:
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid API key
       content:
         application/json:
           schema:
@@ -269,8 +269,8 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid API key
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:

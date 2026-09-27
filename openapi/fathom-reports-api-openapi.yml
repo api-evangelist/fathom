@@ -175,6 +175,24 @@ components:
           schema:
             $ref: '#/components/schemas/Error'
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+    AggregationResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+              description: Dynamic keys matching the requested aggregates and groupings.
     CurrentVisitors:
       type: object
       properties:
@@ -201,24 +219,6 @@ components:
                 type: string
               total:
                 type: integer
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
-    AggregationResult:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties:
-              type: string
-              description: Dynamic keys matching the requested aggregates and groupings.
   securitySchemes:
     BearerAuth:
       type: http

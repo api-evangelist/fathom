@@ -161,38 +161,7 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
-    AggregationResult:
-      type: object
-      properties:
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties:
-              type: string
-              description: Dynamic keys matching the requested aggregates and groupings.
     CurrentVisitors:
       type: object
       properties:
@@ -219,6 +188,37 @@ components:
                 type: string
               total:
                 type: integer
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+    AggregationResult:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            additionalProperties:
+              type: string
+              description: Dynamic keys matching the requested aggregates and groupings.
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     BearerAuth:
       type: http

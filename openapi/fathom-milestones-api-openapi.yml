@@ -138,20 +138,93 @@ paths:
         '404':
           $ref: '#/components/responses/NotFound'
 components:
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    BadRequest:
+      description: Bad request
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: Unique identifier for the site.
+      schema:
+        type: string
+    Limit:
+      name: limit
+      in: query
+      required: false
+      description: Number of results per page (1-100, default 10).
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 100
+        default: 10
+    StartingAfter:
+      name: starting_after
+      in: query
+      required: false
+      description: Cursor for forward pagination — return results after this ID.
+      schema:
+        type: string
+    MilestoneId:
+      name: milestone_id
+      in: path
+      required: true
+      description: Unique identifier for the milestone.
+      schema:
+        type: string
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
   schemas:
-    MilestoneCreate:
+    Error:
       type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
       required:
-      - name
-      - milestone_date
+      - error
+    MilestoneList:
+      type: object
+      properties:
+        object:
+          type: string
+          example: list
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Milestone'
+        has_more:
+          type: boolean
+    MilestoneUpdate:
+      type: object
       properties:
         name:
           type: string
-          description: Display name for the milestone.
         milestone_date:
           type: string
           format: date
-          description: Date of the milestone (YYYY-MM-DD).
     Milestone:
       type: object
       properties:
@@ -174,92 +247,19 @@ components:
         updated_at:
           type: string
           format: date-time
-    Error:
+    MilestoneCreate:
       type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
       required:
-      - error
-    MilestoneUpdate:
-      type: object
+      - name
+      - milestone_date
       properties:
         name:
           type: string
+          description: Display name for the milestone.
         milestone_date:
           type: string
           format: date
-    MilestoneList:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Milestone'
-        has_more:
-          type: boolean
-  parameters:
-    EndingBefore:
-      name: ending_before
-      in: query
-      required: false
-      description: Cursor for backward pagination — return results before this ID.
-      schema:
-        type: string
-    MilestoneId:
-      name: milestone_id
-      in: path
-      required: true
-      description: Unique identifier for the milestone.
-      schema:
-        type: string
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for forward pagination — return results after this ID.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Number of results per page (1-100, default 10).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: Unique identifier for the site.
-      schema:
-        type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+          description: Date of the milestone (YYYY-MM-DD).
   securitySchemes:
     BearerAuth:
       type: http

@@ -36,14 +36,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
     Account:
       type: object
       properties:
@@ -60,6 +52,14 @@ components:
           type: string
           format: email
           description: Account email address.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
   responses:
     Unauthorized:
       description: Missing or invalid API key

@@ -160,12 +160,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     NotFound:
       description: Resource not found
       content:
@@ -178,7 +172,35 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   schemas:
+    EventUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          description: New display name for the event.
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
+    EventCreate:
+      type: object
+      required:
+      - name
+      properties:
+        name:
+          type: string
+          description: Display name for the event.
     EventList:
       type: object
       properties:
@@ -191,14 +213,6 @@ components:
             $ref: '#/components/schemas/Event'
         has_more:
           type: boolean
-    EventCreate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the event.
     Event:
       type: object
       properties:
@@ -217,26 +231,12 @@ components:
         created_at:
           type: string
           format: date-time
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
-    EventUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-          description: New display name for the event.
   parameters:
-    EndingBefore:
-      name: ending_before
-      in: query
-      required: false
-      description: Cursor for backward pagination — return results before this ID.
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: Unique identifier for the site.
       schema:
         type: string
     Limit:
@@ -249,18 +249,18 @@ components:
         minimum: 1
         maximum: 100
         default: 10
+    EndingBefore:
+      name: ending_before
+      in: query
+      required: false
+      description: Cursor for backward pagination — return results before this ID.
+      schema:
+        type: string
     EventId:
       name: event_id
       in: path
       required: true
       description: Unique identifier for the event.
-      schema:
-        type: string
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: Unique identifier for the site.
       schema:
         type: string
     StartingAfter:

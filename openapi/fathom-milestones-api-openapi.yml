@@ -139,14 +139,14 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   responses:
-    Unauthorized:
-      description: Missing or invalid API key
+    NotFound:
+      description: Resource not found
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
-    NotFound:
-      description: Resource not found
+    Unauthorized:
+      description: Missing or invalid API key
       content:
         application/json:
           schema:
@@ -170,22 +170,6 @@ components:
             $ref: '#/components/schemas/Milestone'
         has_more:
           type: boolean
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-          description: Human-readable error message.
-      required:
-      - error
-    MilestoneUpdate:
-      type: object
-      properties:
-        name:
-          type: string
-        milestone_date:
-          type: string
-          format: date
     Milestone:
       type: object
       properties:
@@ -208,6 +192,22 @@ components:
         updated_at:
           type: string
           format: date-time
+    MilestoneUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+        milestone_date:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+          description: Human-readable error message.
+      required:
+      - error
     MilestoneCreate:
       type: object
       required:
@@ -222,18 +222,18 @@ components:
           format: date
           description: Date of the milestone (YYYY-MM-DD).
   parameters:
+    SiteId:
+      name: site_id
+      in: path
+      required: true
+      description: Unique identifier for the site.
+      schema:
+        type: string
     EndingBefore:
       name: ending_before
       in: query
       required: false
       description: Cursor for backward pagination — return results before this ID.
-      schema:
-        type: string
-    MilestoneId:
-      name: milestone_id
-      in: path
-      required: true
-      description: Unique identifier for the milestone.
       schema:
         type: string
     Limit:
@@ -246,11 +246,11 @@ components:
         minimum: 1
         maximum: 100
         default: 10
-    SiteId:
-      name: site_id
+    MilestoneId:
+      name: milestone_id
       in: path
       required: true
-      description: Unique identifier for the site.
+      description: Unique identifier for the milestone.
       schema:
         type: string
     StartingAfter:

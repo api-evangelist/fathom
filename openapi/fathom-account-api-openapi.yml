@@ -1,74 +1,183 @@
 openapi: 3.2.0
 info:
-  title: Fathom Analytics REST Account API
-  description: Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
-  version: '1'
+  title: Fathom Analytics Account API
+  version: v1
+  summary: Manage sites, pull reports, and track events from your own code.
+  description: '## Fathom Analytics API
+
+
+    Use the API to manage sites, events and milestones, or pull custom reports. The base URL is `https://api.usefathom.com/v1`. Each request counts towards your monthly pageviews. Ten Create Site calls count the same as ten pageviews. That keeps the API flexible for you without us having to raise plan prices to cover it. The first time anyone runs a unique aggregation, there is a short delay while the database builds a query plan. After that, it is fast. > See our community guidelines for what you can and can''t do when building plugins, integrations or connections to the API. ## Rate limits and concurrency
+
+
+    The API has two separate limits, both applied per account across every endpoint:
+
+
+    - A **per-hour** limit on all API requests. This is the sustained-volume backstop; concurrency is the primary safeguard. - A **concurrency** limit: how many requests you can have in flight at the same time, across all endpoints. Every account includes a free allowance. Need more? Upgrade your API plan in your billing settings. Plans are self-serve and apply immediately:
+
+
+    | Plan | Price | Per hour All endpoints | Concurrent All endpoints |
+
+    | --- | --- | --- | --- |
+
+    | Tier 1 | Included | 600 | 5 |
+
+    | Tier 2 | $19/mo | 1,000 | 5 |
+
+    | Tier 3 | $39/mo | 2,000 | 10 |
+
+    | Tier 4 | $79/mo | 4,000 | 15 |
+
+    | Tier 5 | $199/mo | 8,000 | 20 |
+
+    | Tier 6 | $399/mo | 16,000 | 25 |
+
+
+    When you exceed any limit we return a `429` with a `Retry-After` header. Wait that many seconds, then retry. ## Create a token
+
+
+    To create a token for our API, go to https://app.usefathom.com/api and click `Create new`. - Click `Create new` from the API page. - Give your token a name, and set permissions (Admin, read only (all sites), or site-specific). - Click `Save changes`. - Write down your API token and save it in a safe place. You won''t be able to retrieve your token once you navigate away from that page. ## Authentication
+
+
+    To connect to our API, you must use the `Authorization` header with a bearer token. This can be obtained from your dashboard, under Settings → API. Your API key has complete access to your account (depending on the permissions you set), so please protect it. You should also send `Accept: application/json` so that errors are returned as JSON. ## Pagination
+
+
+    All top-level API resources allow you to fetch records in bulk via our "list" methods. These list methods share a common, cursor-based pagination structure. We''ve taken inspiration from the excellent Stripe API, so this will be familiar to a lot of you. You can paginate using either `starting_after` or `ending_before` (but not both at once):
+
+
+    - When you use `starting_after`, we sort records in chronological order, allowing you to page from the start of time up until the current day. - When you use `ending_before`, we sort records in reverse chronological order, effectively working backwards from the object ID you give us. Every list response is wrapped in a list object. The `has_more` boolean tells you whether another page is available, and the value to pass as your next cursor is the `id` of the first or last item in `data`. All list endpoints accept these query string parameters:
+
+
+    - `limit`: the number of objects to return, between 1 and 100 (default 10). - `starting_after`: an object ID that defines your place in the list, paging forwards. - `ending_before`: an object ID that defines your place in the list, paging backwards. `GET /v1/aggregations` is not a list endpoint, does not use this pagination, and has its own `limit` (default 500 when grouping, max 1000). ## Errors
+
+
+    The Fathom API uses conventional HTTP status codes to indicate the result of a request. Codes in the `2xx` range mean success, codes in the `4xx` range indicate a problem with the information you supplied (a missing parameter, an invalid token, a permissions issue, and so on), and codes in the `5xx` range indicate an error on our side (these are rare).'
+  termsOfService: https://usefathom.com/legal/guidelines
   contact:
     name: Fathom Analytics Support
     email: support@usefathom.com
-  termsOfService: https://usefathom.com/terms
-  license:
-    name: Proprietary
+    url: https://usefathom.com
 servers:
 - url: https://api.usefathom.com/v1
   description: Fathom Analytics API v1
 security:
-- BearerAuth: []
+- bearerAuth: []
 tags:
 - name: Account
-  description: Account information
+  description: Information about the account and token behind your API key.
 paths:
   /account:
     get:
       operationId: getAccount
       summary: Get account
-      description: Returns account information for the authenticated user.
+      description: 'Retrieve information about the account that owns the API key.
+
+
+        **Permissions:** Requires a token with full account access (the `*` scope).
+
+
+        **Returns:** An account object.'
       tags:
       - Account
       responses:
         '200':
-          description: Account object
+          description: Successful response
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Account'
+              example:
+                id: 500302232
+                object: account
+                name: Homer Simpson
+                email: homer@simpsonsfamily.doh
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /token:
+    get:
+      operationId: getToken
+      summary: Get token
+      description: 'Retrieve metadata about the API token used to make the request, including its name, permissions (abilities), token-format version and timestamps. Your secret token value is never returned.
+
+
+        **Permissions:** Any valid API token.
+
+
+        **Returns:** A token object.'
+      tags:
+      - Account
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                name: Production server
+                version: 4
+                abilities:
+                - '*'
+                last_used_at: '2024-01-15 09:24:00'
+                expires_at: null
+                created_at: '2024-01-01 12:00:00'
+                updated_at: '2024-01-15 09:24:00'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
   responses:
+    BadRequest:
+      description: 'Bad request. Returned for validation failures and other request problems. Send `Accept: application/json` to receive errors as JSON.'
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+            - $ref: '#/components/schemas/ValidationError'
+          examples:
+            general:
+              summary: General error
+              value:
+                error: Something went wrong with your request.
+            validation:
+              summary: Validation error
+              value:
+                errors:
+                  name:
+                  - The name field is required.
     Unauthorized:
-      description: Missing or invalid API key
+      description: Authentication failed — the API token is missing, malformed or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            error: Unauthenticated.
   schemas:
+    ValidationError:
+      type: object
+      properties:
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Validation messages keyed by field name.
+      required:
+      - errors
     Error:
       type: object
       properties:
         error:
           type: string
-          description: Human-readable error message.
+          description: A human-readable error message.
       required:
       - error
-    Account:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique account identifier.
-        object:
-          type: string
-          example: account
-        name:
-          type: string
-          description: Account display name.
-        email:
-          type: string
-          format: email
-          description: Account email address.
   securitySchemes:
-    BearerAuth:
+    bearerAuth:
       type: http
       scheme: bearer
-      description: API key generated in account settings at https://app.usefathom.com/api
+      description: 'Authenticate with a personal API token created at https://app.usefathom.com/api, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Human-readable API reference
+  url: https://usefathom.com/api/v1

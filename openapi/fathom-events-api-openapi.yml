@@ -1,277 +1,532 @@
 openapi: 3.2.0
 info:
-  title: Fathom Analytics REST Events API
-  description: Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
-  version: '1'
+  title: Fathom Analytics Events API
+  version: v1
+  summary: Manage sites, pull reports, and track events from your own code.
+  description: '## Fathom Analytics API
+
+
+    Use the API to manage sites, events and milestones, or pull custom reports. The base URL is `https://api.usefathom.com/v1`. Each request counts towards your monthly pageviews. Ten Create Site calls count the same as ten pageviews. That keeps the API flexible for you without us having to raise plan prices to cover it. The first time anyone runs a unique aggregation, there is a short delay while the database builds a query plan. After that, it is fast. > See our community guidelines for what you can and can''t do when building plugins, integrations or connections to the API. ## Rate limits and concurrency
+
+
+    The API has two separate limits, both applied per account across every endpoint:
+
+
+    - A **per-hour** limit on all API requests. This is the sustained-volume backstop; concurrency is the primary safeguard. - A **concurrency** limit: how many requests you can have in flight at the same time, across all endpoints. Every account includes a free allowance. Need more? Upgrade your API plan in your billing settings. Plans are self-serve and apply immediately:
+
+
+    | Plan | Price | Per hour All endpoints | Concurrent All endpoints |
+
+    | --- | --- | --- | --- |
+
+    | Tier 1 | Included | 600 | 5 |
+
+    | Tier 2 | $19/mo | 1,000 | 5 |
+
+    | Tier 3 | $39/mo | 2,000 | 10 |
+
+    | Tier 4 | $79/mo | 4,000 | 15 |
+
+    | Tier 5 | $199/mo | 8,000 | 20 |
+
+    | Tier 6 | $399/mo | 16,000 | 25 |
+
+
+    When you exceed any limit we return a `429` with a `Retry-After` header. Wait that many seconds, then retry. ## Create a token
+
+
+    To create a token for our API, go to https://app.usefathom.com/api and click `Create new`. - Click `Create new` from the API page. - Give your token a name, and set permissions (Admin, read only (all sites), or site-specific). - Click `Save changes`. - Write down your API token and save it in a safe place. You won''t be able to retrieve your token once you navigate away from that page. ## Authentication
+
+
+    To connect to our API, you must use the `Authorization` header with a bearer token. This can be obtained from your dashboard, under Settings → API. Your API key has complete access to your account (depending on the permissions you set), so please protect it. You should also send `Accept: application/json` so that errors are returned as JSON. ## Pagination
+
+
+    All top-level API resources allow you to fetch records in bulk via our "list" methods. These list methods share a common, cursor-based pagination structure. We''ve taken inspiration from the excellent Stripe API, so this will be familiar to a lot of you. You can paginate using either `starting_after` or `ending_before` (but not both at once):
+
+
+    - When you use `starting_after`, we sort records in chronological order, allowing you to page from the start of time up until the current day. - When you use `ending_before`, we sort records in reverse chronological order, effectively working backwards from the object ID you give us. Every list response is wrapped in a list object. The `has_more` boolean tells you whether another page is available, and the value to pass as your next cursor is the `id` of the first or last item in `data`. All list endpoints accept these query string parameters:
+
+
+    - `limit`: the number of objects to return, between 1 and 100 (default 10). - `starting_after`: an object ID that defines your place in the list, paging forwards. - `ending_before`: an object ID that defines your place in the list, paging backwards. `GET /v1/aggregations` is not a list endpoint, does not use this pagination, and has its own `limit` (default 500 when grouping, max 1000). ## Errors
+
+
+    The Fathom API uses conventional HTTP status codes to indicate the result of a request. Codes in the `2xx` range mean success, codes in the `4xx` range indicate a problem with the information you supplied (a missing parameter, an invalid token, a permissions issue, and so on), and codes in the `5xx` range indicate an error on our side (these are rare).'
+  termsOfService: https://usefathom.com/legal/guidelines
   contact:
     name: Fathom Analytics Support
     email: support@usefathom.com
-  termsOfService: https://usefathom.com/terms
-  license:
-    name: Proprietary
+    url: https://usefathom.com
 servers:
 - url: https://api.usefathom.com/v1
   description: Fathom Analytics API v1
 security:
-- BearerAuth: []
+- bearerAuth: []
 tags:
 - name: Events
-  description: Event management per site
+  description: Manage events for a site.
 paths:
   /sites/{site_id}/events:
     get:
       operationId: listEvents
       summary: List events
-      description: Returns a paginated list of events for a site.
+      description: 'Return a list of this site''s events: every event name the site has tracked, plus any event you''ve set a currency for. Events are sorted by `name`.
+
+
+        **Permissions:** Requires read access to the site (`all-sites-readonly`, `read:{site_id}` or `manage:{site_id}`).
+
+
+        **Returns:** A list of event objects.
+
+
+        > Identify events by `name`. Goal IDs were removed on 24 September 2026, so don''t store `id`. Only use it as the `starting_after` or `ending_before` cursor when you page through this list.
+
+
+        > `currency` is the currency you set with Set event currency, or `null` when the event uses your site''s default. `created_at` is `null` for newer events.'
       tags:
       - Events
       parameters:
-      - $ref: '#/components/parameters/SiteId'
-      - $ref: '#/components/parameters/Limit'
-      - $ref: '#/components/parameters/StartingAfter'
-      - $ref: '#/components/parameters/EndingBefore'
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
+      - name: limit
+        in: query
+        required: false
+        description: A limit on the number of objects to be returned, between 1 and 100.
+        schema:
+          type: integer
+          default: 10
+          example: 10
+      - name: starting_after
+        in: query
+        required: false
+        description: A cursor for use in pagination. `starting_after` is an object ID that defines your place in the list. For example, if you make a list request and receive 10 objects ending with `obj_foo`, your subsequent call can include `starting_after=obj_foo` to fetch the next page.
+        schema:
+          type: string
+      - name: ending_before
+        in: query
+        required: false
+        description: A cursor for use in pagination, working in the opposite direction to `starting_after`. `ending_before` is an object ID that defines your place in the list.
+        schema:
+          type: string
       responses:
         '200':
-          description: Paginated list of events
+          description: Successful response
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/EventList'
+              example:
+                object: list
+                url: /v1/sites/CDBUGS/events
+                has_more: false
+                data:
+                - id: IJKLMNOP
+                  object: event
+                  name: Purchased product
+                  currency: pound
+                  created_at: '2020-08-21 15:24:00'
+                - id: ABCDEFGH
+                  object: event
+                  name: Signed up to newsletter
+                  currency: null
+                  created_at: '2020-08-21 15:24:00'
+        '400':
+          $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
+    delete:
+      operationId: deleteEventByName
+      summary: Delete event
+      description: 'Remove the currency you set for an event, so it goes back to your site''s default currency. This doesn''t delete the event''s completion data, so the event still appears in List events while it has data. The call succeeds even if the event has no currency set.
+
+
+        **Permissions:** Requires write access to the site (`manage:{site_id}`).
+
+
+        **Returns:** Returns a deleted object on success. Otherwise, this call returns an error.'
+      tags:
+      - Events
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
+      - name: name
+        in: query
+        required: true
+        description: 'The name of the event.
+
+          Example: `Purchase early access`'
+        schema:
+          type: string
+          example: Purchase early access
+      responses:
+        '200':
+          description: Successful response
+          content:
+            application/json:
+              example:
+                object: event
+                name: Purchase early access
+                deleted: true
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       operationId: createEvent
       summary: Create event
-      description: Creates a new custom event for a site.
+      description: 'Previously created an event. This endpoint is no longer available.
+
+
+        **Permissions:** Requires write access to the site (`manage:{site_id}`).'
       tags:
       - Events
+      deprecated: true
       parameters:
-      - $ref: '#/components/parameters/SiteId'
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventCreate'
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Purchase early access
+                  description: 'The name of the event (up to 255 characters).
+
+                    Example: `Purchase early access`'
+                currency:
+                  type: string
+                  enum:
+                  - dollar
+                  - pound
+                  - euro
+                  - yuan
+                  - peso
+                  - shekel
+                  - yen
+                  - won
+                  - hryvnia
+                  - franc
+                  - rupee
+                  - integer
+                  - none
+                  default: dollar
+                  description: The currency used for any value attached to this event's completions. If omitted, defaults to `dollar`.
+              required:
+              - name
+      responses:
+        '410':
+          description: This endpoint is no longer available. Track the event on your site, then use [List events](#list-events) and [Set event currency](#set-event-currency).
+  /sites/{site_id}/events/currency:
+    post:
+      operationId: setEventCurrency
+      summary: Set event currency
+      description: 'Set the currency of an event by its name. You can set it before the event is tracked for the first time: the currency applies as soon as the event arrives.
+
+
+        **Permissions:** Requires write access to the site (`manage:{site_id}`).
+
+
+        **Returns:** Returns an updated object on success. Otherwise, this call returns an error.'
+      tags:
+      - Events
+      parameters:
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Purchase early access
+                  description: 'The name of the event (up to 255 characters).
+
+                    Example: `Purchase early access`'
+                currency:
+                  type: string
+                  enum:
+                  - dollar
+                  - pound
+                  - euro
+                  - yuan
+                  - peso
+                  - shekel
+                  - yen
+                  - won
+                  - hryvnia
+                  - franc
+                  - rupee
+                  - integer
+                  - none
+                  example: pound
+                  description: The currency used for any value attached to this event's completions.
+              required:
+              - name
+              - currency
       responses:
         '200':
-          description: Created event object
+          description: Successful response
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
+              example:
+                object: event
+                name: Purchase early access
+                currency: pound
+                updated: true
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
   /sites/{site_id}/events/{event_id}:
     get:
       operationId: getEvent
       summary: Get event
-      description: Returns a single event by ID.
+      description: 'Previously returned a single event by its goal code. This endpoint is no longer available.
+
+
+        **Permissions:** Requires read access to the site (`all-sites-readonly`, `read:{site_id}` or `manage:{site_id}`).'
       tags:
       - Events
+      deprecated: true
       parameters:
-      - $ref: '#/components/parameters/SiteId'
-      - $ref: '#/components/parameters/EventId'
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
+      - name: event_id
+        in: path
+        required: true
+        description: 'The `id` (tracking code) of the event, as returned when the event was created.
+
+          Example: `ABCDEFGH`'
+        schema:
+          type: string
+          example: ABCDEFGH
+        example: ABCDEFGH
       responses:
-        '200':
-          description: Event object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
+        '410':
+          description: This endpoint is no longer available. Use [List events](#list-events).
     post:
       operationId: updateEvent
       summary: Update event
-      description: Updates an event's name.
+      description: 'Previously updated an event by its goal code. This endpoint is no longer available.
+
+
+        **Permissions:** Requires write access to the site (`manage:{site_id}`).'
       tags:
       - Events
+      deprecated: true
       parameters:
-      - $ref: '#/components/parameters/SiteId'
-      - $ref: '#/components/parameters/EventId'
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
+      - name: event_id
+        in: path
+        required: true
+        description: 'The `id` (tracking code) of the event you wish to update.
+
+          Example: `ABCDEFGH`'
+        schema:
+          type: string
+          example: ABCDEFGH
+        example: ABCDEFGH
       requestBody:
         required: false
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/EventUpdate'
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: Purchase early access (live)
+                  description: The name of the event (up to 255 characters).
+                currency:
+                  type: string
+                  enum:
+                  - dollar
+                  - pound
+                  - euro
+                  - yuan
+                  - peso
+                  - shekel
+                  - yen
+                  - won
+                  - hryvnia
+                  - franc
+                  - rupee
+                  - integer
+                  - none
+                  description: The currency used for any value attached to this event's completions.
       responses:
-        '200':
-          description: Updated event object
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Event'
-        '400':
-          $ref: '#/components/responses/BadRequest'
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
+        '410':
+          description: This endpoint is no longer available. To change an event's currency, use [Set event currency](#set-event-currency).
     delete:
       operationId: deleteEvent
       summary: Delete event
-      description: Permanently deletes an event.
+      description: 'Previously deleted an event by its goal code. This endpoint is no longer available.
+
+
+        **Permissions:** Requires write access to the site (`manage:{site_id}`).'
       tags:
       - Events
+      deprecated: true
       parameters:
-      - $ref: '#/components/parameters/SiteId'
-      - $ref: '#/components/parameters/EventId'
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
+      - name: event_id
+        in: path
+        required: true
+        description: The `id` (tracking code) of the event you wish to delete.
+        schema:
+          type: string
+          example: ABCDEFGH
+        example: ABCDEFGH
       responses:
-        '200':
-          description: Empty object on success
-          content:
-            application/json:
-              schema:
-                type: object
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
+        '410':
+          description: This endpoint is no longer available. To delete an event, use [Delete event](#delete-event-by-name) with the event name.
   /sites/{site_id}/events/{event_id}/data:
     delete:
-      operationId: wipeEventData
-      summary: Wipe event data
-      description: Permanently wipes all data for an event without deleting the event itself.
+      operationId: wipeEvent
+      summary: Wipe event
+      description: Previously wiped all completion data belonging to an event. This endpoint is no longer available.
       tags:
       - Events
+      deprecated: true
       parameters:
-      - $ref: '#/components/parameters/SiteId'
-      - $ref: '#/components/parameters/EventId'
+      - name: site_id
+        in: path
+        required: true
+        description: 'The ID of the site. This is the same string you use in your tracking code.
+
+          Example: `CDBUGS`'
+        schema:
+          type: string
+          example: CDBUGS
+        example: CDBUGS
+      - name: event_id
+        in: path
+        required: true
+        description: The `id` (tracking code) of the event.
+        schema:
+          type: string
+          example: ABCDEFGH
+        example: ABCDEFGH
       responses:
-        '200':
-          description: Empty object on success
-          content:
-            application/json:
-              schema:
-                type: object
-        '401':
-          $ref: '#/components/responses/Unauthorized'
-        '404':
-          $ref: '#/components/responses/NotFound'
+        '410':
+          description: This endpoint has been retired and now returns `410 Gone`. It is no longer possible to wipe an event's completion data via the API.
 components:
   responses:
-    NotFound:
-      description: Resource not found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
     BadRequest:
-      description: Bad request
+      description: 'Bad request. Returned for validation failures and other request problems. Send `Accept: application/json` to receive errors as JSON.'
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Error'
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+            - $ref: '#/components/schemas/ValidationError'
+          examples:
+            general:
+              summary: General error
+              value:
+                error: Something went wrong with your request.
+            validation:
+              summary: Validation error
+              value:
+                errors:
+                  name:
+                  - The name field is required.
     Unauthorized:
-      description: Missing or invalid API key
+      description: Authentication failed — the API token is missing, malformed or invalid.
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/Error'
+          example:
+            error: Unauthenticated.
   schemas:
-    EventUpdate:
+    ValidationError:
       type: object
       properties:
-        name:
-          type: string
-          description: New display name for the event.
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Validation messages keyed by field name.
+      required:
+      - errors
     Error:
       type: object
       properties:
         error:
           type: string
-          description: Human-readable error message.
+          description: A human-readable error message.
       required:
       - error
-    EventCreate:
-      type: object
-      required:
-      - name
-      properties:
-        name:
-          type: string
-          description: Display name for the event.
-    EventList:
-      type: object
-      properties:
-        object:
-          type: string
-          example: list
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Event'
-        has_more:
-          type: boolean
-    Event:
-      type: object
-      properties:
-        id:
-          type: string
-          description: Unique event identifier.
-        object:
-          type: string
-          example: event
-        name:
-          type: string
-          description: Event display name.
-        site_id:
-          type: string
-          description: ID of the site this event belongs to.
-        created_at:
-          type: string
-          format: date-time
-  parameters:
-    SiteId:
-      name: site_id
-      in: path
-      required: true
-      description: Unique identifier for the site.
-      schema:
-        type: string
-    Limit:
-      name: limit
-      in: query
-      required: false
-      description: Number of results per page (1-100, default 10).
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 100
-        default: 10
-    EndingBefore:
-      name: ending_before
-      in: query
-      required: false
-      description: Cursor for backward pagination — return results before this ID.
-      schema:
-        type: string
-    EventId:
-      name: event_id
-      in: path
-      required: true
-      description: Unique identifier for the event.
-      schema:
-        type: string
-    StartingAfter:
-      name: starting_after
-      in: query
-      required: false
-      description: Cursor for forward pagination — return results after this ID.
-      schema:
-        type: string
   securitySchemes:
-    BearerAuth:
+    bearerAuth:
       type: http
       scheme: bearer
-      description: API key generated in account settings at https://app.usefathom.com/api
+      description: 'Authenticate with a personal API token created at https://app.usefathom.com/api, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Human-readable API reference
+  url: https://usefathom.com/api/v1

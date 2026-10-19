@@ -1,70 +1,166 @@
 openapi: 3.2.0
 info:
-  title: Fathom Analytics REST Reports API
-  description: Privacy-first, GDPR-compliant, cookie-free website analytics API. Manage sites, events, and milestones; generate aggregated custom reports; and retrieve real-time visitor counts. Authentication uses Bearer token API keys generated in the account settings area.
-  version: '1'
+  title: Fathom Analytics Reports API
+  version: v1
+  summary: Manage sites, pull reports, and track events from your own code.
+  description: '## Fathom Analytics API
+
+
+    Use the API to manage sites, events and milestones, or pull custom reports. The base URL is `https://api.usefathom.com/v1`. Each request counts towards your monthly pageviews. Ten Create Site calls count the same as ten pageviews. That keeps the API flexible for you without us having to raise plan prices to cover it. The first time anyone runs a unique aggregation, there is a short delay while the database builds a query plan. After that, it is fast. > See our community guidelines for what you can and can''t do when building plugins, integrations or connections to the API. ## Rate limits and concurrency
+
+
+    The API has two separate limits, both applied per account across every endpoint:
+
+
+    - A **per-hour** limit on all API requests. This is the sustained-volume backstop; concurrency is the primary safeguard. - A **concurrency** limit: how many requests you can have in flight at the same time, across all endpoints. Every account includes a free allowance. Need more? Upgrade your API plan in your billing settings. Plans are self-serve and apply immediately:
+
+
+    | Plan | Price | Per hour All endpoints | Concurrent All endpoints |
+
+    | --- | --- | --- | --- |
+
+    | Tier 1 | Included | 600 | 5 |
+
+    | Tier 2 | $19/mo | 1,000 | 5 |
+
+    | Tier 3 | $39/mo | 2,000 | 10 |
+
+    | Tier 4 | $79/mo | 4,000 | 15 |
+
+    | Tier 5 | $199/mo | 8,000 | 20 |
+
+    | Tier 6 | $399/mo | 16,000 | 25 |
+
+
+    When you exceed any limit we return a `429` with a `Retry-After` header. Wait that many seconds, then retry. ## Create a token
+
+
+    To create a token for our API, go to https://app.usefathom.com/api and click `Create new`. - Click `Create new` from the API page. - Give your token a name, and set permissions (Admin, read only (all sites), or site-specific). - Click `Save changes`. - Write down your API token and save it in a safe place. You won''t be able to retrieve your token once you navigate away from that page. ## Authentication
+
+
+    To connect to our API, you must use the `Authorization` header with a bearer token. This can be obtained from your dashboard, under Settings → API. Your API key has complete access to your account (depending on the permissions you set), so please protect it. You should also send `Accept: application/json` so that errors are returned as JSON. ## Pagination
+
+
+    All top-level API resources allow you to fetch records in bulk via our "list" methods. These list methods share a common, cursor-based pagination structure. We''ve taken inspiration from the excellent Stripe API, so this will be familiar to a lot of you. You can paginate using either `starting_after` or `ending_before` (but not both at once):
+
+
+    - When you use `starting_after`, we sort records in chronological order, allowing you to page from the start of time up until the current day. - When you use `ending_before`, we sort records in reverse chronological order, effectively working backwards from the object ID you give us. Every list response is wrapped in a list object. The `has_more` boolean tells you whether another page is available, and the value to pass as your next cursor is the `id` of the first or last item in `data`. All list endpoints accept these query string parameters:
+
+
+    - `limit`: the number of objects to return, between 1 and 100 (default 10). - `starting_after`: an object ID that defines your place in the list, paging forwards. - `ending_before`: an object ID that defines your place in the list, paging backwards. `GET /v1/aggregations` is not a list endpoint, does not use this pagination, and has its own `limit` (default 500 when grouping, max 1000). ## Errors
+
+
+    The Fathom API uses conventional HTTP status codes to indicate the result of a request. Codes in the `2xx` range mean success, codes in the `4xx` range indicate a problem with the information you supplied (a missing parameter, an invalid token, a permissions issue, and so on), and codes in the `5xx` range indicate an error on our side (these are rare).'
+  termsOfService: https://usefathom.com/legal/guidelines
   contact:
     name: Fathom Analytics Support
     email: support@usefathom.com
-  termsOfService: https://usefathom.com/terms
-  license:
-    name: Proprietary
+    url: https://usefathom.com
 servers:
 - url: https://api.usefathom.com/v1
   description: Fathom Analytics API v1
 security:
-- BearerAuth: []
+- bearerAuth: []
 tags:
 - name: Reports
-  description: Aggregation reports and current visitor counts
+  description: Custom reports across your traffic, events and sources.
 paths:
   /aggregations:
     get:
-      operationId: getAggregations
-      summary: Get aggregations
-      description: Returns aggregated analytics data. Rate limited to 10 requests per minute. Supports grouping by time period and dimension fields, sorting, filtering, and timezone-aware date ranges.
+      operationId: aggregation
+      summary: Aggregation
+      description: 'Build a custom report. Group and filter on the fields you care about. **Permissions:** Requires read access to the relevant site (`all-sites-readonly`, `read:{site_id}` or `manage:{site_id}`). **Returns:** Returns an array of objects. The properties of each object vary based on the aggregates and groupings you''ve asked for. All numeric values are returned as strings. > This API endpoint is only accurate on data from March 2021 onwards. Before then, we did not tie browser, country, pathname, etc. together, so we have no way to offer this advanced filtering on that data. > Grouped reports (`field_grouping`) default to 500 rows unless you set `limit`. The maximum is 1000, and this endpoint has no pagination. BI tools such as Looker Studio / Data Studio that fire many aggregations at once will hit the concurrency cap, not the row cap. Space those requests, cache one extract per period, or raise the API plan. > **Goal codes are no longer available:** Reporting on an event by its goal code (`entity_id` with `entity=event`) is no longer available. Report on events using `site_id` and `entity_name` instead. Pageview reporting, where `entity_id` is the site `id`, is unaffected. #### Filtering
+
+
+        Filters are supplied as a JSON array. Each filter is an object with a `property`, an `operator` and a string `value`. You can add as many filters as you like; see the examples in the code panel. We support the following operators:
+
+
+        - `is`: exact match
+
+        - `is not`: everything except an exact match
+
+        - `is like`: contains the term (supports wildcards `*`)
+
+        - `is not like`: does not contain the term
+
+        - `matching`: matches a regular expression (regex) pattern
+
+        - `not matching`: does not match a regex pattern
+
+
+        **Operator availability depends on the field.** Text-style fields support all six operators; categorical fields support only `is` and `is not`:
+
+
+        - **All six operators:** `domain`, `hostname`, `pathname`, `entry_page`, `exit_page`, `referrer_hostname`, `referrer_pathname`, `referrer_source`, `ai_source`, `ref`, `utm_campaign`, `utm_source`, `utm_medium`, `utm_content`, `utm_term`
+
+        - **`is` / `is not` only:** `device_type`, `operating_system`, `browser`, `country_code`, `city`, `state`, `region`
+
+
+        Note: `domain` can be filtered on but not grouped by, while `keyword` can be grouped by but not filtered on. ##### Entry and exit pages
+
+
+        `entry_page` is the pathname of the first pageview in a visit. `exit_page` is the pathname of the last pageview before the visitor leaves. Both are session-level fields. They mirror the Entry Pages and Exit Pages reports on your dashboard and work for both `field_grouping` and `filters`. When you filter by `entry_page`, only visits that *entered* on that page are included. A visitor who lands on `/home` and later views `/pricing` is excluded by `{"property": "entry_page", "operator": "is", "value": "/pricing"}`, but included when filtering on `pathname` instead. ##### AI tools
+
+
+        `referrer_source` returns `AI` for visits from AI tools such as ChatGPT, Claude and Perplexity. `ai_source` returns the name of the AI tool, the same names you see in the AI tab on your dashboard (for example `ChatGPT`, `Claude`, `Perplexity` or `Gemini`). Each name combines the tool''s referrers and its `utm_source` links, so `ChatGPT` includes `chatgpt.com`, `chat.openai.com` and `utm_source=chatgpt.com`. Both work for `field_grouping` and `filters`, for pageviews and events, and on all of your history. When you group by `ai_source` alone, you get one row for each AI tool and visits from anywhere else are left out. When you group it with other fields, those other visits come back with an empty `ai_source`. Read Traffic sources for how we decide a visit came from AI.'
       tags:
       - Reports
       parameters:
       - name: entity
         in: query
         required: true
-        description: The entity type to aggregate.
+        description: 'The entity you want to report on. Events are treated separately from pageviews. Supported values: `pageview` and `event`.'
         schema:
           type: string
           enum:
           - pageview
           - event
+          example: pageview
       - name: entity_id
         in: query
         required: false
-        description: Required when entity is "pageview". The site ID.
+        description: 'When `entity` is `pageview`, this is the `id` of the site you want to aggregate on. When `entity` is `event`, do not pass a goal code here. Use `site_id` and `entity_name` instead. Pageview usage is unchanged.
+
+
+          **Required when entity is "pageview".**'
         schema:
           type: string
+          example: CDBUGS
       - name: site_id
         in: query
         required: false
-        description: Required when entity is "event". The site ID.
+        description: 'The `id` of the site the event belongs to.
+
+
+          **Required when entity is "event" and entity_id is omitted.**'
         schema:
           type: string
       - name: entity_name
         in: query
         required: false
-        description: Required when entity is "event". The event name.
+        description: 'The name of the event you want to report on. Example: `purchase`.
+
+
+          **Required when entity is "event" and entity_id is omitted.**'
         schema:
           type: string
       - name: aggregates
         in: query
         required: true
-        description: 'Comma-separated list of aggregate metrics. For pageviews: visits, uniques, pageviews, avg_duration, bounce_rate. For events: conversions, unique_conversions, value.
+        description: 'The aggregates you wish to include, separated by a comma.
 
-          '
+
+          Supported values for **pageview** entities: `visits`, `uniques`, `pageviews`, `avg_duration` and `bounce_rate`. The difference between "visits" and "uniques" is that visits are unique site visits whilst uniques are unique page visits.
+
+
+          Supported values for **event** entities: `conversions`, `unique_conversions` and `value` (value is returned in cents).'
         schema:
           type: string
+          example: pageviews
       - name: date_grouping
         in: query
         required: false
-        description: Group results by time period.
+        description: 'By default, we don''t do any date grouping and return total aggregations. Override this with `hour`, `day`, `month` or `year`. Note: `hour` grouping is only supported for date ranges of up to 7 days.'
         schema:
           type: string
           enum:
@@ -75,152 +171,292 @@ paths:
       - name: field_grouping
         in: query
         required: false
-        description: 'Dimension field to group by. Allowed values: hostname, pathname, referrer_hostname, browser, country_code, city, device_type, operating_system, utm_source, utm_medium, utm_campaign, utm_content, utm_term, keyword.
-
-          '
+        description: 'The fields you want to group by, separated by a comma (e.g. `hostname,pathname`). Supported values: `hostname`, `pathname`, `entry_page`, `exit_page`, `referrer_hostname`, `referrer_pathname`, `referrer_source`, `ai_source`, `browser`, `country_code`, `city`, `state`, `region`, `device_type`, `operating_system`, `utm_campaign`, `utm_content`, `utm_medium`, `utm_source`, `utm_term`, `keyword` and `ref`.'
         schema:
           type: string
       - name: sort_by
         in: query
         required: false
-        description: Sort order in field:asc or field:desc format.
-        schema:
-          type: string
-      - name: timezone
-        in: query
-        required: false
-        description: IANA TZ database timezone name (e.g. America/New_York).
+        description: 'The field you want to sort by, in the format `field:asc|desc`. You can use any field present in `aggregates` or `field_grouping`. When using `date_grouping`, you can also sort by `timestamp:asc` or `timestamp:desc`.
+
+          Example: `pageviews:desc`'
         schema:
           type: string
       - name: date_from
         in: query
         required: false
-        description: Start of date range as Unix timestamp.
+        description: Timestamp (e.g. `2022-04-01 15:31:00`). Should match the timezone you're reporting in. Defaults to the entity's first recorded data.
         schema:
-          type: integer
+          type: string
       - name: date_to
         in: query
         required: false
-        description: End of date range as Unix timestamp.
+        description: 'Timestamp (e.g. `2022-04-01 15:31:00`). Should match the timezone you''re reporting in. Default: now.'
         schema:
-          type: integer
+          type: string
+      - name: timezone
+        in: query
+        required: false
+        description: '**Deprecated.** We now report using each site''s configured timezone by default. If provided, this [TZ database name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) overrides the site''s timezone for this request. We''ll be removing this parameter in the future.'
+        schema:
+          type: string
+        deprecated: true
       - name: limit
         in: query
         required: false
-        description: Maximum number of results to return.
+        description: 'Optional integer from `1` to `1000` inclusive.
+
+
+          **Default.** When `field_grouping` is set and you omit `limit`, we return at most 500 rows. When `field_grouping` is omitted, there is no default row cap. `date_grouping` alone does not trigger the 500 default.
+
+
+          **Maximum.** A `limit` above 1000 returns HTTP 400 with an `errors.limit` validation message. There is no pagination on this endpoint, so you cannot walk past 1000 grouped rows with a cursor. Narrow the result with `filters` and/or a shorter `date_from` / `date_to`, then issue more requests.'
         schema:
           type: integer
       - name: filters
         in: query
         required: false
-        description: 'JSON-encoded array of filter objects with field, operator (is, is not, is like, matching, not matching), and value keys.
-
-          '
-        schema:
-          type: string
+        description: A JSON-encoded array of filter objects. See the filtering reference below for the full list of supported properties and operators. Each filter's `value` must be a string.
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: '#/components/schemas/AggregationFilter'
       responses:
         '200':
-          description: Aggregated analytics results
+          description: Successful response
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/AggregationResult'
+              examples:
+                example_1:
+                  summary: Example 1
+                  value:
+                  - browser: Chrome
+                    device_type: Desktop
+                    pageviews: '30000'
+                  - browser: Chrome
+                    device_type: Mobile
+                    pageviews: '28000'
+                  - browser: Chrome
+                    device_type: Tablet
+                    pageviews: '24000'
+                  - browser: Firefox
+                    device_type: Desktop
+                    pageviews: '12000'
+                  - browser: Firefox
+                    device_type: Tablet
+                    pageviews: '5000'
+                  - browser: Firefox
+                    device_type: Mobile
+                    pageviews: '300'
+                filter_only_include_the_about_page:
+                  summary: 'Filter: only include the /about page'
+                  value:
+                  - property: pathname
+                    operator: is
+                    value: /about
+                filter_exclude_register_and_login:
+                  summary: 'Filter: exclude /register and /login'
+                  value:
+                  - property: pathname
+                    operator: is not
+                    value: /register
+                  - property: pathname
+                    operator: is not
+                    value: /login
+                filter_only_include_the_united_kingdom:
+                  summary: 'Filter: only include the United Kingdom'
+                  value:
+                  - property: country_code
+                    operator: is
+                    value: GB
+                filter_exclude_register_or_desktop:
+                  summary: 'Filter: exclude /register or Desktop'
+                  value:
+                  - property: pathname
+                    operator: is not
+                    value: /register
+                  - property: device_type
+                    operator: is not
+                    value: Desktop
+                filter_only_include_visits_that_entered_on_pricing:
+                  summary: 'Filter: only include visits that entered on /pricing'
+                  value:
+                  - property: entry_page
+                    operator: is
+                    value: /pricing
+                filter_only_include_visits_from_chatgpt:
+                  summary: 'Filter: only include visits from ChatGPT'
+                  value:
+                  - property: ai_source
+                    operator: is
+                    value: ChatGPT
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
   /current_visitors:
     get:
-      operationId: getCurrentVisitors
-      summary: Get current visitors
-      description: Returns the number of visitors currently on a site. Rate limited to 10 requests per minute.
+      operationId: currentVisitors
+      summary: Current visitors
+      description: 'Returns the total number of current visitors on a site. The detailed view also returns the top 150 pages and top 150 referrers.
+
+
+        **Permissions:** Requires read access to the site (`all-sites-readonly`, `read:{site_id}` or `manage:{site_id}`).
+
+
+        **Returns:** The current visitor count, with an optional detailed breakdown.'
       tags:
       - Reports
       parameters:
       - name: site_id
         in: query
         required: true
-        description: The site ID to query.
+        description: 'The `id` of the site.
+
+          Example: `CDBUGS`'
         schema:
           type: string
+          example: CDBUGS
       - name: detailed
         in: query
         required: false
-        description: If true, returns breakdown by page and referrer.
+        description: Set to `true` for a detailed breakdown of pages and referrers. Otherwise you'll only get a count.
         schema:
           type: boolean
+          default: false
       responses:
         '200':
-          description: Current visitor count and optional detail
+          description: Simple
           content:
             application/json:
-              schema:
-                $ref: '#/components/schemas/CurrentVisitors'
+              examples:
+                simple:
+                  summary: Simple
+                  value:
+                    total: 14
+                detailed:
+                  summary: Detailed
+                  value:
+                    total: 144
+                    content:
+                    - hostname: bugsbunny.com
+                      pathname: /spacejam
+                      total: 100
+                    - hostname: bugsbunny.com
+                      pathname: /blog/being-a-wabbit
+                      total: 44
+                    referrers:
+                    - referrer_hostname: https://usefathom.com
+                      referrer_pathname: /why-we-love-bugs-bunny
+                      total: 50
+                    - referrer_hostname: https://daffyduck.com
+                      referrer_pathname: /blog/i-am-sick-of-his-antics
+                      total: 32
         '400':
           $ref: '#/components/responses/BadRequest'
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  responses:
+    Unauthorized:
+      description: Authentication failed — the API token is missing, malformed or invalid.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+          example:
+            error: Unauthenticated.
+    BadRequest:
+      description: 'Bad request. Returned for validation failures and other request problems. Send `Accept: application/json` to receive errors as JSON.'
+      content:
+        application/json:
+          schema:
+            oneOf:
+            - $ref: '#/components/schemas/Error'
+            - $ref: '#/components/schemas/ValidationError'
+          examples:
+            general:
+              summary: General error
+              value:
+                error: Something went wrong with your request.
+            validation:
+              summary: Validation error
+              value:
+                errors:
+                  name:
+                  - The name field is required.
   schemas:
-    CurrentVisitors:
+    ValidationError:
       type: object
       properties:
-        total:
-          type: integer
-          description: Total number of current visitors on the site.
-        content:
-          type: array
-          description: Per-page breakdown (when detailed=true).
-          items:
-            type: object
-            properties:
-              pathname:
-                type: string
-              total:
-                type: integer
-        referrers:
-          type: array
-          description: Per-referrer breakdown (when detailed=true).
-          items:
-            type: object
-            properties:
-              referrer:
-                type: string
-              total:
-                type: integer
+        errors:
+          type: object
+          additionalProperties:
+            type: array
+            items:
+              type: string
+          description: Validation messages keyed by field name.
+      required:
+      - errors
     Error:
       type: object
       properties:
         error:
           type: string
-          description: Human-readable error message.
+          description: A human-readable error message.
       required:
       - error
-    AggregationResult:
+    AggregationFilter:
       type: object
+      required:
+      - property
+      - operator
+      - value
       properties:
-        data:
-          type: array
-          items:
-            type: object
-            additionalProperties:
-              type: string
-              description: Dynamic keys matching the requested aggregates and groupings.
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    BadRequest:
-      description: Bad request
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
+        property:
+          type: string
+          enum:
+          - domain
+          - hostname
+          - pathname
+          - referrer_hostname
+          - referrer_pathname
+          - referrer_source
+          - ai_source
+          - ref
+          - utm_campaign
+          - utm_source
+          - utm_medium
+          - utm_content
+          - utm_term
+          - device_type
+          - operating_system
+          - browser
+          - country_code
+          - city
+          - state
+          - region
+          description: The field to filter on. `domain` can be filtered but not grouped; `keyword` can be grouped but not filtered.
+        operator:
+          type: string
+          enum:
+          - is
+          - is not
+          - is like
+          - is not like
+          - matching
+          - not matching
+          description: '`is`/`is not` for exact matches, `is like`/`is not like` for wildcard contains (supports `*`), `matching`/`not matching` for regular expressions. Categorical fields (e.g. browser, country_code) support only `is`/`is not`.'
+        value:
+          type: string
+          description: The value to compare against (always a string).
   securitySchemes:
-    BearerAuth:
+    bearerAuth:
       type: http
       scheme: bearer
-      description: API key generated in account settings at https://app.usefathom.com/api
+      description: 'Authenticate with a personal API token created at https://app.usefathom.com/api, sent as `Authorization: Bearer <token>`.'
+externalDocs:
+  description: Human-readable API reference
+  url: https://usefathom.com/api/v1

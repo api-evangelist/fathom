@@ -1,0 +1,69 @@
+edges:
+- partner_name: Raycast
+  partner: raycast
+  partner_match: domain
+  partner_url: https://www.raycast.com
+  partner_domain: raycast.com
+  type: marketplace
+  marketplace: raycast-store
+  channel: connector-listing
+  relationship: connector-coverage
+  evidence: https://www.raycast.com/danielferguson/fathom-analytics
+  app: Fathom Analytics
+  category: Raycast Store extension (community wrapper)
+  listing_count: 2
+  contract_reference:
+    register: Raycast Store (raycast/extensions monorepo + store_listings JSON)
+    spec_file: null
+    role: raycast-community-wrapper
+    builder: community
+    authors:
+    - danielferguson
+    - yannglt
+    matched_domain: usefathom.com
+    matched_by: domain
+    monorepo_commit: 84f9ac51336a8c69f70974a75bc067c0feae3658
+    listings:
+    - title: Fathom Analytics
+      store_url: https://www.raycast.com/danielferguson/fathom-analytics
+      installs: 254
+      categories:
+      - Web
+      - Productivity
+      source: https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions/fathom-analytics/
+      author: danielferguson
+    - title: Fathom Analytics Stats
+      store_url: https://www.raycast.com/yannglt/fathom-analytics-stats
+      installs: 153
+      categories:
+      - Applications
+      - Developer Tools
+      - Data
+      source: https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions/fathom-analytics-stats/
+      author: yannglt
+    categories:
+    - Applications
+    - Data
+    - Developer Tools
+    - Productivity
+    - Web
+    identity_note: the extension's own source calls a host on the product's domain AND its title / package name
+      passes partner_link's name check; built by Raycast community developers, not the vendor
+    signal_note: 'coverage: Raycast''s store reaches the product through community-built extensions; one edge per
+      (product, store); install / listing counts are context, never counted'
+    detected_by: sweep-raycast-store-extensions.py
+    detected: '2026-10-22'
+  detected_by: sweep-raycast-store-extensions.py
+  first_seen: '2026-10-22'
+  apps:
+  - Fathom Analytics
+  - Fathom Analytics Stats
+  direction: partner-built
+generated: '2026-10-22'
+method: searched
+checked:
+- https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions
+- https://www.raycast.com/api/v1/store_listings
+source:
+- https://github.com/raycast/extensions/tree/84f9ac51336a8c69f70974a75bc067c0feae3658/extensions
+- https://www.raycast.com/api/v1/store_listings

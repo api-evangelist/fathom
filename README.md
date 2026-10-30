@@ -1,4 +1,4 @@
-# Fathom Analytics (fathom)
+# Fathom Analytics
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,69 +64,173 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Fathom Analytics is a privacy-first website analytics platform that provides GDPR-compliant, cookie-free analytics as a simple and accurate alternative to Google Analytics. The platform serves thousands of companies, including Fortune 100 enterprises and government agencies, without tracking personally identifiable information. Fathom exposes a REST API at `https://api.usefathom.com/v1` that enables developers to manage sites, events, and milestones, generate flexible aggregation reports, and retrieve real-time visitor counts — all authenticated via Bearer token API keys with configurable permissions.
+Fathom Analytics is a privacy-first website analytics platform that provides GDPR-compliant, cookie-free analytics as an alternative to Google Analytics. The platform serves thousands of companies, including Fortune 100 enterprises and government agencies, offering simple and accurate traffic metrics without tracking personally identifiable information. Fathom exposes a REST API with base URL https://api.usefathom.com/v1, enabling developers to manage sites, events, and milestones, generate aggregated custom reports, and retrieve real-time visitor counts. Authentication is via Bearer token API keys, which are generated in the account settings area and support configurable permissions scoped to admin, all sites, or individual sites.
 
-APIs.json: [https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/fathom/refs/heads/main/apis.yml)
+**Areas:** Analytics · Privacy · GDPR · Website Analytics · Cookieless · Page Views · Event · Reporting
 
-Naftiko: [https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=fathom-api-evangelist&utm_content=repo](https://github.com/naftiko/fleet?utm_source=api-evangelist&utm_medium=readme&utm_campaign=fathom-api-evangelist&utm_content=repo)
+## Fathom Analytics on APIs.io
 
-## Tags
+Everything profiled for Fathom Analytics is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/fathom/](https://apis.io/providers/fathom/)** — or go straight to one of the APIs or properties below.
 
-- Analytics
-- Privacy
-- GDPR
-- Website Analytics
-- Cookieless
-- Page Views
-- Events
-- Reporting
+### APIs (5)
 
-## APIs
+- [Fathom Analytics Account API](https://apis.io/apis/fathom/fathom-account-api/) — Account information
+- [Fathom Analytics Events API](https://apis.io/apis/fathom/fathom-events-api/) — Event management per site
+- [Fathom Analytics Milestones API](https://apis.io/apis/fathom/fathom-milestones-api/) — Milestone management per site
+- [Fathom Analytics Reports API](https://apis.io/apis/fathom/fathom-reports-api/) — Aggregation reports and current visitor counts
+- [Fathom Analytics Sites API](https://apis.io/apis/fathom/fathom-sites-api/) — Site management
 
-### Fathom Analytics REST API
+### Published properties
 
-The Fathom Analytics REST API provides programmatic access to account data, sites, events, milestones, aggregation reports, and real-time current visitor counts. All requests authenticate via Bearer token and use cursor-based pagination (using `starting_after` and `ending_before` parameters with limits of 1–100 results per request).
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-- **Base URL:** `https://api.usefathom.com/v1`
-- **Authentication:** Bearer token (API keys generated at https://app.usefathom.com/api)
-- **Documentation:** https://usefathom.com/api
+#### Agentic access (1)
 
-**Endpoints:**
-- `GET /account` — Retrieve account information
-- `GET /sites`, `GET /sites/{site_id}`, `POST /sites`, `POST /sites/{site_id}`, `DELETE /sites/{site_id}` — Site management
-- `GET /sites/{site_id}/events`, `POST /sites/{site_id}/events`, etc. — Event management
-- `GET /sites/{site_id}/milestones`, `POST /sites/{site_id}/milestones`, etc. — Milestone management
-- `GET /aggregations` — Generate custom aggregation reports
-- `GET /current_visitors` — Real-time visitor counts
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Plans / Rate Limits / FinOps
+- [Fathom Agentic Access](https://apis.io/agentic-access/fathom/fathom-agentic-access/)
 
-- **Plans & Pricing:** [plans/fathom-plans-pricing.yml](plans/fathom-plans-pricing.yml) — Tiered paid subscriptions from $15/month (100K pageviews) to enterprise custom pricing (25M+ pageviews); 17% savings with annual billing; 7-day free trial; all plans include API access and up to 50 sites.
-- **Rate Limits:** [rate-limits/fathom-rate-limits.yml](rate-limits/fathom-rate-limits.yml) — 2,000 requests/hour for site and event management endpoints; 10 requests/minute for aggregation and current_visitors reporting endpoints; 429 status code on throttle.
-- **FinOps:** [finops/fathom-finops.yml](finops/fathom-finops.yml) — Subscription billing model; metered by monthly pageview volume; annual billing discount; API requests count against pageview quota.
+#### JSON Schema (4)
 
-## Timestamps
+The data models the API reads and writes.
 
-- **Created:** 2026-06-12
-- **Modified:** 2026-06-12
+- [Fathom Account](https://apis.io/schemas/fathom/fathom-account/)
+- [Fathom Event](https://apis.io/schemas/fathom/fathom-event/)
+- [Fathom Milestone](https://apis.io/schemas/fathom/fathom-milestone/)
+- [Fathom Site](https://apis.io/schemas/fathom/fathom-site/)
 
-## Common Properties
+#### JSON-LD (1)
 
-| Type | URL |
-|------|-----|
-| Website | https://usefathom.com/ |
-| Documentation | https://usefathom.com/docs |
-| API Documentation | https://usefathom.com/api |
-| Blog | https://usefathom.com/blog |
-| Blog Feed | https://usefathom.com/blog/feed.xml |
-| Changelog | https://usefathom.com/changelog |
-| Changelog Feed | https://usefathom.com/changelog/feed.xml |
-| Pricing | https://usefathom.com/pricing |
-| Status Page | https://status.usefathom.com/ |
-| GitHub Organization | https://github.com/usefathom |
-| X / Twitter | https://twitter.com/usefathom |
-| LinkedIn | https://www.linkedin.com/company/fathom-analytics |
+Linked-data contexts for the provider's vocabulary.
 
-## Maintainers
+- [Fathom Context](https://apis.io/jsonld/fathom/fathom-context/)
 
-- **Kin Lane** — kin@apievangelist.com
+#### Vocabulary (1)
+
+The provider's domain terms, defined.
+
+- [Fathom Vocabulary](https://apis.io/vocabularies/fathom/fathom-vocabulary/)
+
+#### Examples (5)
+
+Example requests and responses.
+
+- [Fathom Get Account Example](https://apis.io/examples/fathom/fathom-get-account-example/)
+- [Fathom Get Aggregations Example](https://apis.io/examples/fathom/fathom-get-aggregations-example/)
+- [Fathom Get Current Visitors Example](https://apis.io/examples/fathom/fathom-get-current-visitors-example/)
+- [Fathom Get Site Example](https://apis.io/examples/fathom/fathom-get-site-example/)
+- [Fathom List Sites Example](https://apis.io/examples/fathom/fathom-list-sites-example/)
+
+#### Collections (10)
+
+Postman and Open Collection request collections.
+
+- [Fathom Analytics REST Account API](https://apis.io/collections/fathom/open-fathom-account-api/)
+- [Fathom Analytics REST Account Events API](https://apis.io/collections/fathom/open-fathom-events-api/)
+- [Fathom Analytics REST Account Milestones API](https://apis.io/collections/fathom/open-fathom-milestones-api/)
+- [Fathom Analytics REST Account Reports API](https://apis.io/collections/fathom/open-fathom-reports-api/)
+- [Fathom Analytics REST Account Sites API](https://apis.io/collections/fathom/open-fathom-sites-api/)
+- [Fathom Analytics REST Account API](https://apis.io/collections/fathom/postman-fathom-account-api/)
+- [Fathom Analytics REST Account Events API](https://apis.io/collections/fathom/postman-fathom-events-api/)
+- [Fathom Analytics REST Account Milestones API](https://apis.io/collections/fathom/postman-fathom-milestones-api/)
+- [Fathom Analytics REST Account Reports API](https://apis.io/collections/fathom/postman-fathom-reports-api/)
+- [Fathom Analytics REST Account Sites API](https://apis.io/collections/fathom/postman-fathom-sites-api/)
+
+#### Governance rules (1)
+
+Spectral rulesets for the provider's contracts.
+
+- [Fathom Analytics — jsonschema rules](https://apis.io/rules/fathom/fathom-jsonschema-spectral-rules/)
+
+#### Security (3)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Fathom Authentication](https://apis.io/security/fathom/fathom-authentication/)
+- [Fathom Domain Security](https://apis.io/security/fathom/fathom-domain-security/)
+- [Fathom Trust Center](https://apis.io/security/fathom/fathom-trust-center/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Fathom Plans Pricing](https://apis.io/plans/fathom/fathom-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Fathom Rate Limits](https://apis.io/rate-limits/fathom/fathom-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Fathom Finops](https://apis.io/finops/fathom/fathom-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://usefathom.com/)
+- [Documentation](https://usefathom.com/docs)
+- [Pricing](https://usefathom.com/pricing)
+- [Changelog](https://usefathom.com/changelog)
+- [Blog](https://usefathom.com/blog)
+- [GitHub](https://github.com/usefathom)
+- [Status](https://status.usefathom.com/)
+
+## API Evangelist rating
+
+**Kin Score 42.7** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 63.5 |
+| Contract governance | 23.5 |
+| Operational transparency | 42.1 |
+| Developer ergonomics | 32.1 |
+| Access clarity | 26.3 |
+
+**Agent readiness 25.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | verified |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | na |
+| Operation Distinctiveness | mostly |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/fathom/](https://apis.io/providers/fathom/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Fathom Analytics: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/fathom/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
